@@ -3,160 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>פרוטוקולי ושיטות ניתוב | זירת סימולציה ומפקד רשתות</title>
+<title>מסלול המידע - לומדים ניתוב עם סהר</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght=400;500;600;700;800&family=Fira+Code:wght=400;500;600&display=swap" rel="stylesheet">
-<!-- טעינת ספריית Tailwind CSS וספריית האייקונים Lucide עבור חלונית העזרה -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
-:root{
-  --bg:#080C14; --panel:#111622; --panel2:#1B2030; --panel3:#262D42;
-  --border:#1E2638; --border2:#323F5E;
-  --text:#E2E8F0; --muted:#94A3B8; --muted2:#64748B;
-  --static-blue:#3B82F6; --static-dim:rgba(59,130,246,0.15);
-  --ospf-gold:#F59E0B; --ospf-dim:rgba(245,158,11,0.15);
-  --bg-green:#10B981;
-  --cyber-purple:#8B5CF6;
-  --radius:14px;
+:root {
+  --bg: #FAF7F0; /* רקע שמנת */
+  --panel: #FFFFFF;
+  --panel2: #F3EEE3;
+  --panel3: #E8E1D1;
+  --border: #D8D0C0;
+  --border2: #C4BBA8;
+  --text: #2D3748;
+  --muted: #5A6578;
+  --muted2: #718096;
+  --primary-blue: #2563EB;
+  --static-blue: #1D4ED8;
+  --ospf-gold: #D97706;
+  --bg-green: #059669;
+  --cyber-purple: #7C3AED;
+  --radius: 14px;
 }
-*{box-sizing:border-box;}
-body{
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:'Rubik',sans-serif; line-height:1.6;
-  padding-bottom:140px;
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: 'Rubik', sans-serif; line-height: 1.6;
+  padding-bottom: 140px;
 }
-.wrap{max-width:1100px; margin:0 auto; padding:0 20px;}
-h1,h2,h3{font-weight:700; margin:0 0 8px;}
-p{margin:0 0 12px; color:var(--muted);}
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { font-weight: 700; margin: 0 0 8px; color: #1A202C; }
+p { margin: 0 0 12px; color: var(--muted); }
+
+/* יישור והפרדת LTR/RTL */
+.ltr { direction: ltr; display: inline-block; unicode-bidi: embed; }
+.code-text { font-family: 'Fira Code', monospace; direction: ltr; display: inline-block; }
 
 /* סרגל התקדמות */
-.progressbar{position:sticky; top:0; z-index:150; background:rgba(8,12,20,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); padding:14px 20px;}
-.progressbar-inner{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:14px;}
-.progressbar-title{font-weight:700; font-size:15px; color:#FFFFFF;}
-.steps{display:flex; gap:6px; flex:1;}
-.step{flex:1; height:6px; border-radius:4px; background:var(--panel3); overflow:hidden;}
-.step.done{background:var(--bg-green);}
-.step.active{background:var(--static-blue);}
-.progress-pct{font-size:13px; color:var(--muted); font-family:'Fira Code',monospace;}
+.progressbar { position: sticky; top: 0; z-index: 150; background: rgba(250, 247, 240, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 14px 20px; }
+.progressbar-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+.progressbar-title { font-weight: 700; font-size: 15px; color: #1A202C; }
+.steps { display: flex; gap: 6px; flex: 1; }
+.step { flex: 1; height: 8px; border-radius: 4px; background: var(--panel3); overflow: hidden; }
+.step.done { background: var(--bg-green); }
+.step.active { background: var(--static-blue); }
+.progress-pct { font-size: 13px; color: var(--muted); font-family: 'Fira Code', monospace; }
 
 /* כותרת */
-header.hero{padding:60px 0 30px; border-bottom:1px solid var(--border);}
-.eyebrow{display:inline-block; font-family:'Fira Code',monospace; font-size:12px; color:var(--cyber-purple); background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); padding:5px 14px; border-radius:20px; margin-bottom:18px;}
+header.hero { padding: 40px 0 25px; border-bottom: 1px solid var(--border); }
+.eyebrow { display: inline-block; font-family: 'Fira Code', monospace; font-size: 12px; color: var(--cyber-purple); background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.25); padding: 5px 14px; border-radius: 20px; margin-bottom: 14px; }
 
-/* עטיפת הכותרת והאווטר המוגדל */
-.hero-title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 12px;
-}
+.hero-title-wrap { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; }
+.hero-avatar-spin { width: 75px; height: 75px; object-fit: contain; flex-shrink: 0; animation: spinSlow 12s linear infinite; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
 
-/* אוואטר מוגדל שמסתובב לאט, ללא מסגרת עיגול */
-.hero-avatar-spin {
-  width: 75px;
-  height: 75px;
-  object-fit: contain;
-  flex-shrink: 0;
-  animation: spinSlow 12s linear infinite;
-  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.5));
-}
+@keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-@keyframes spinSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+h1.title { font-size: 38px; margin: 0; color: #1A202C; }
+h1.title span { color: var(--cyber-purple); }
 
-h1.title{font-size:42px; margin:0; color:#FFFFFF;}
-h1.title span{color:var(--cyber-purple); text-shadow:0 0 15px rgba(139,92,246,0.3);}
+section { padding: 40px 0; border-top: 1px solid var(--border); }
+.section-head { margin-bottom: 22px; }
+.section-num { font-family: 'Fira Code', monospace; color: var(--muted2); font-size: 13px; }
+.section-title { font-size: 24px; color: #1A202C; }
 
-@media(max-width:640px){
-  .hero-title-wrap { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .hero-avatar-spin { width: 60px; height: 60px; }
-  h1.title { font-size: 32px; }
-}
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media(max-width:720px){ .grid2 { grid-template-columns: 1fr; } }
 
-section{padding:50px 0; border-top:1px solid var(--border);}
-.section-head{margin-bottom:26px;}
-.section-num{font-family:'Fira Code',monospace; color:var(--muted2); font-size:13px;}
-.section-title{font-size:24px; color:#FFFFFF;}
-
-.card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:24px;}
-.grid2{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-@media(max-width:720px){.grid2{grid-template-columns:1fr;}}
-
-.concept-card{border-right:4px solid var(--cyber-purple);}
-.tag{display:inline-block; font-family:'Fira Code',monospace; font-size:11px; padding:3px 8px; border-radius:6px; margin:2px 4px 2px 0;}
-.tag.static{background:var(--static-dim); color:var(--static-blue);}
-.tag.ospf{background:var(--ospf-dim); color:var(--ospf-gold);}
+.concept-card { border-right: 4px solid var(--cyber-purple); }
+.tag { display: inline-block; font-family: 'Fira Code', monospace; font-size: 11px; padding: 3px 8px; border-radius: 6px; margin: 2px 4px 2px 0; direction: ltr; }
+.tag.static { background: #E0E7FF; color: var(--static-blue); }
+.tag.ospf { background: #FEF3C7; color: var(--ospf-gold); }
 
 /* אקורדיון */
-.accordion{border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin-bottom:12px;}
-.acc-head{padding:16px 18px; background:var(--panel); cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-weight:600;}
-.acc-head:hover{background:var(--panel2);}
-.acc-body{max-height:0; overflow:hidden; transition:max-height .3s ease; background:var(--panel);}
-.acc-body-inner{padding:0 18px 18px;}
-.accordion.open .acc-body{max-height:600px;}
-.acc-arrow{transition:transform .3s;}
-.accordion.open .acc-arrow{transform:rotate(180deg);}
+.accordion { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; background: var(--panel); }
+.acc-head { padding: 16px 18px; background: var(--panel); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #1A202C; }
+.acc-head:hover { background: var(--panel2); }
+.acc-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; background: var(--panel); }
+.acc-body-inner { padding: 0 18px 18px; }
+.accordion.open .acc-body { max-height: 600px; }
+.acc-arrow { transition: transform .3s; }
+.accordion.open .acc-arrow { transform: rotate(180deg); }
 
 /* דיאגרמת ניתוב */
-.diagram-wrap{background:#04060A; border:2px solid var(--border); border-radius:var(--radius); padding:30px; overflow-x:auto; margin-top:20px;}
-.route-node{cursor:pointer; transition:transform 0.2s;}
-.route-node:hover{transform:scale(1.02);}
-.controls-row{display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:20px;}
-button.btn{background:var(--cyber-purple); color:#FFFFFF; border:none; border-radius:8px; padding:12px 22px; font-family:'Rubik'; font-weight:600; font-size:15px; cursor:pointer;}
-button.btn:hover{box-shadow:0 0 12px rgba(139,92,246,0.4);}
-button.btn.secondary{background:var(--panel3); color:var(--text); border:1px solid var(--border2);}
+.diagram-wrap { background: #1E293B; border: 2px solid var(--border2); border-radius: var(--radius); padding: 25px; overflow-x: auto; margin-top: 15px; color: #F8FAFC; }
+.controls-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 18px; }
+button.btn { background: var(--cyber-purple); color: #FFFFFF; border: none; border-radius: 8px; padding: 10px 20px; font-family: 'Rubik'; font-weight: 600; font-size: 14px; cursor: pointer; transition: background 0.2s; }
+button.btn:hover { opacity: 0.9; }
+button.btn.secondary { background: var(--panel3); color: var(--text); border: 1px solid var(--border2); }
 
-/* שורות טבלת ניתוב */
 .rt-row { transition: opacity 0.3s ease; }
 .rt-row-bg { fill: transparent; stroke: transparent; transition: fill 0.3s, stroke 0.3s; }
-.rt-row.active-row .rt-row-bg { fill: rgba(139, 92, 246, 0.15); stroke: #8B5CF6; stroke-width: 1.5px; }
-.routing-table-active .rt-row:not(.active-row) { opacity: 0.3; }
+.rt-row.active-row .rt-row-bg { fill: rgba(124, 58, 237, 0.2); stroke: #A78BFA; stroke-width: 1.5px; }
+.routing-table-active .rt-row:not(.active-row) { opacity: 0.35; }
 
-.log-panel{background:#020305; border:1px solid var(--border); border-radius:10px; margin-top:16px; padding:16px; font-family:'Fira Code',monospace; font-size:13px; max-height:220px; overflow-y:auto; color:#A1B0CB; border-left:3px solid var(--static-blue);}
-.log-line{margin-bottom:8px; animation:fadeIn .3s ease;}
+.log-panel { background: #0F172A; border: 1px solid var(--border2); border-radius: 10px; margin-top: 16px; padding: 14px; font-family: 'Fira Code', monospace; font-size: 13px; max-height: 200px; overflow-y: auto; color: #CBD5E1; border-right: 3px solid var(--primary-blue); }
+.log-line { margin-bottom: 6px; }
 
-/* טרמינל סיסקו */
-.terminal{background:#030508; border:1px solid var(--cyber-purple); border-radius:10px; padding:18px;}
-.term-topbar{display:flex; gap:6px; margin-bottom:12px; align-items:center;}
-.dot{width:10px; height:10px; border-radius:50%;}
-.dot.r{background:#EF4444;} .dot.y{background:#F59E0B;} .dot.g{background:#10B981;}
-.term-output{white-space:pre-wrap; color:#94A3B8; margin-bottom:10px; min-height:60px;}
-.term-output .ok{color:#10B981; font-weight:bold;}
-.term-output .bad{color:#EF4444; font-weight:bold;}
-.term-output .hint{color:#F59E0B;}
-.term-input-row{display:flex; align-items:center; gap:6px; border-top:1px solid var(--border); padding-top:12px;}
-.prompt{color:#10B981;}
-input.term-input{flex:1; background:transparent; border:none; color:#FFFFFF; font-family:'Fira Code',monospace; font-size:13px; outline:none;}
+/* טרמינל סיסקו - מעוצב עם LTR להקלדה ו-RTL להסברים */
+.terminal { background: #0F172A; border: 1px solid var(--cyber-purple); border-radius: 10px; padding: 18px; color: #F8FAFC; }
+.term-topbar { display: flex; gap: 6px; margin-bottom: 12px; align-items: center; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.r { background: #EF4444; } .dot.y { background: #F59E0B; } .dot.g { background: #10B981; }
+.term-explain-box { background: #1E293B; border-right: 3px solid var(--cyber-purple); padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: #E2E8F0; text-align: right; }
+.term-output { white-space: pre-wrap; color: #94A3B8; margin-bottom: 10px; min-height: 60px; font-family: 'Fira Code', monospace; direction: ltr; text-align: left; }
+.term-output .ok { color: #34D399; font-weight: bold; }
+.term-output .bad { color: #F87171; font-weight: bold; }
+.term-output .hint { color: #FBBF24; }
+.term-input-row { display: flex; align-items: center; gap: 8px; border-top: 1px solid #334155; padding-top: 12px; direction: ltr; }
+.prompt { color: #34D399; font-family: 'Fira Code', monospace; font-size: 13px; white-space: nowrap; }
+input.term-input { flex: 1; background: transparent; border: none; color: #FFFFFF; font-family: 'Fira Code', monospace; font-size: 13px; outline: none; direction: ltr; text-align: left; }
 
-.task-box{background:var(--panel2); border:1px solid var(--border2); border-radius:10px; padding:14px 16px; margin-bottom:14px;}
-.task-title{font-weight:600; margin-bottom:4px; color:var(--ospf-gold);}
+.task-box { background: var(--panel2); border: 1px solid var(--border2); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
+.task-title { font-weight: 600; margin-bottom: 4px; color: var(--ospf-gold); }
 
-/* שאלות אמריקאיות */
-.quiz-q{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin-bottom:20px;}
-.quiz-opts{display:flex; flex-direction:column; gap:10px; margin-top:14px;}
-.quiz-opt{background:var(--panel3); border:1px solid var(--border2); border-radius:8px; padding:14px; cursor:pointer;}
-.quiz-opt.correct{background:rgba(16,185,129,0.15); border-color:#10B981; color:#10B981;}
-.quiz-opt.wrong{background:rgba(239,68,68,0.15); border-color:#EF4444; color:#EF4444;}
-.quiz-opt.disabled{pointer-events:none;}
-.quiz-explain{margin-top:12px; padding:12px; background:var(--panel2); border-radius:8px; font-size:13px; display:none;}
-.quiz-explain.show{display:block;}
+/* טאב התרגילים והרפלקציה */
+.ex-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.ex-num { font-size: 12px; font-family: 'Fira Code', monospace; color: var(--cyber-purple); font-weight: 700; margin-bottom: 4px; }
+.ex-q { font-weight: 600; font-size: 15px; color: #1A202C; margin-bottom: 10px; }
+.ex-input { width: 100%; padding: 10px 14px; border: 1px solid var(--border2); border-radius: 8px; background: var(--bg); font-family: 'Fira Code', monospace; font-size: 13px; direction: ltr; text-align: left; margin-bottom: 8px; }
+.ex-textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--border2); border-radius: 8px; background: var(--bg); font-family: 'Rubik', sans-serif; font-size: 13px; direction: rtl; text-align: right; margin-bottom: 8px; min-height: 70px; }
+.ex-feedback { font-size: 13px; margin-top: 6px; padding: 8px 12px; border-radius: 6px; display: none; }
+.ex-feedback.correct { display: block; background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+.ex-feedback.wrong { display: block; background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
 
-.completion{text-align:center; padding:50px 20px; background:var(--panel); border:2px solid var(--bg-green); border-radius:var(--radius); display:none;}
-.completion.show{display:block;}
-
-@keyframes fadeIn { from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
-.footer-note{text-align:center; color:var(--muted2); font-size:12px; margin-top:60px;}
+.completion { text-align: center; padding: 40px 20px; background: var(--panel); border: 2px solid var(--bg-green); border-radius: var(--radius); display: none; margin-top: 20px; }
+.completion.show { display: block; }
+.footer-note { text-align: center; color: var(--muted2); font-size: 12px; margin-top: 50px; }
 </style>
 </head>
 <body>
 
 <div class="progressbar">
   <div class="progressbar-inner">
-    <div class="progressbar-title">🌐 בקרת נתיבים: Static & Dynamic Routing</div>
+    <div class="progressbar-title">🌐 מסלול המידע: ניתוב עם סהר</div>
     <div class="steps" id="stepsBar"></div>
     <div class="progress-pct" id="progressPct">0%</div>
   </div>
@@ -167,17 +149,15 @@ input.term-input{flex:1; background:transparent; border:none; color:#FFFFFF; fon
 <header class="hero">
   <div class="hero-text">
     <div class="eyebrow">Layer 3 Core Routing · OSPF & Static Path Selection</div>
-    
-    <!-- כותרת ראשית עם האווטר המוגדל מימין -->
     <div class="hero-title-wrap">
       <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מטורלל מסתובב" class="hero-avatar-spin">
-      <h1 class="title">מפת הדרכים של המידע: <span>ארכיטקטורת ניתוב</span></h1>
+      <h1 class="title">מסלול המידע - <span>לומדים ניתוב עם סהר</span></h1>
     </div>
-
-    <p class="subtitle">שלטו בדרכים המובילות את האינטרנט. למדו כיצד נתבים מקבלים החלטות, מעדכנים את טבלת הניתוב (Routing Table) ובוחרים את הנתיב הקצר ביותר.</p>
+    <p class="subtitle">ברוכים הבאים לסדנת הניתוב המתקדמת. כאן תלמדו כיצד נתבים מקבלים החלטות, מעדכנים את טבלת הניתוב (<span class="code-text">Routing Table</span>) וקובעים את הנתיב האופטימלי ברשת.</p>
   </div>
 </header>
 
+<!-- חלק 1 -->
 <section id="s1">
 <div class="section-head">
   <div class="section-num">01 — קביעת מסלולים ברשת</div>
@@ -188,16 +168,17 @@ input.term-input{flex:1; background:transparent; border:none; color:#FFFFFF; fon
   <div class="card concept-card">
     <h3>📌 ניתוב סטטי (Static) וברירת מחדל</h3>
     <p><span class="tag static">Static Route</span> נתיב המוגדר ידנית על ידי מנהל הרשת. יציב, מאובטח ואינו צורך רוחב פס לעדכונים.</p>
-    <p><span class="tag static">Default Route (0.0.0.0/0)</span> נתיב השולט בכל תעבורה שאין לה יעד מוגדר בטבלה — משמש בדרך כלל ליציאה לענן האינטרנט.</p>
+    <p><span class="tag static">Default Route (0.0.0.0/0)</span> נתיב השולט בכל תעבורה שאין לה יעד מוגדר בטבלה — משמש בדרך כלל ליציאה לרשת האינטרנט.</p>
   </div>
   <div class="card concept-card">
     <h3>⚡ ניתוב דינמי (OSPF) והמרחק המנהלי</h3>
-    <p><span class="tag ospf">OSPF (Open Shortest Path First)</span> פרוטוקול ניתוב דינמי מבוסס Link-State, המחשב נתיבים אוטומטית לפי רוחב פס (Cost).</p>
-    <p><span class="tag ospf">Administrative Distance</span> מדד האמינות של הנתיב. ניתוב סטטי מקבל ערך אמינות מנצח של <b>1</b>, בעוד OSPF מקבל ערך של <b>110</b>.</p>
+    <p><span class="tag ospf">OSPF (Open Shortest Path First)</span> פרוטוקול ניתוב דינמי מבוסס <span class="code-text">Link-State</span>, המחשב נתיבים אוטומטית לפי רוחב פס (<span class="code-text">Cost</span>).</p>
+    <p><span class="tag ospf">Administrative Distance</span> מדד האמינות של הנתיב. ניתוב סטטי מקבל ערך אמינות של <span class="code-text">1</span>, בעוד <span class="code-text">OSPF</span> מקבל ערך של <span class="code-text">110</span>.</p>
   </div>
 </div>
 </section>
 
+<!-- חלק 2 -->
 <section id="s2">
 <div class="section-head">
   <div class="section-num">02 — מנגנון ה-Metric והנתיבים</div>
@@ -205,67 +186,70 @@ input.term-input{flex:1; background:transparent; border:none; color:#FFFFFF; fon
 </div>
 
 <div id="acc1" class="accordion">
-  <div class="acc-head" onclick="toggleAcc('acc1')"><span>מהו חוק ההתאמה הארוכה ביותר (Longest Match)?</span><span class="acc-arrow">▾</span></div>
+  <div class="acc-head" onclick="toggleAcc('acc1')">
+    <span>מהו חוק ההתאמה הארוכה ביותר (<span class="code-text">Longest Prefix Match</span>)?</span>
+    <span class="acc-arrow">▾</span>
+  </div>
   <div class="acc-body"><div class="acc-body-inner">
-    <p>כאשר לנתב יש מספר נתיבים שונים המובילים לאותו יעד, הוא תמיד יבחר בנתיב עם <b>מסיכת הרשת הארוכה והספציפית ביותר</b> (למשל, חוק של `/28` ינצח חוק של `/24`).</p>
+    <p>כאשר לנתב יש מספר נתיבים שונים המובילים לאותו יעד, הוא תמיד יבחר בנתיב עם <b>מסיכת הרשת הארוכה והספציפית ביותר</b> (למשל, נתיב אל טווח <span class="code-text">10.0.1.0/28</span> ינצח נתיב אל טווח <span class="code-text">10.0.0.0/16</span>).</p>
   </div></div>
 </div>
 </section>
 
+<!-- חלק 3: סימולטור -->
 <section id="s3">
 <div class="section-head">
   <div class="section-num">03 — סימולטור מפות הניתוב הארגוני</div>
   <h2 class="section-title">הזנק חבילה ועקוב אחר קבלת ההחלטות בנתב הליבה</h2>
 </div>
-<p>לחץ על סוגי הבקשות למטה כדי לראות את אלגוריתם הניתוב מוצא את ה-Next-Hop מתוך טבלת הניתוב הדינמית המוצגת במרכז.</p>
+<p>לחץ על סוגי הבקשות למטה כדי לראות את אלגוריתם הניתוב מוצא את ה-<span class="code-text">Next-Hop</span> מתוך טבלת הניתוב המוצגת במרכז.</p>
 
 <div class="diagram-wrap">
 <svg id="routingDiagram" viewBox="0 0 1000 580" style="width:100%; display:block;">
-  
-  <line x1="160" y1="150" x2="480" y2="150" stroke="#323F5E" stroke-width="3"/>
-  <line x1="480" y1="150" x2="800" y2="90" stroke="#323F5E" stroke-width="3"/>
-  <line x1="480" y1="150" x2="800" y2="210" stroke="#323F5E" stroke-width="3"/>
+  <line x1="160" y1="150" x2="480" y2="150" stroke="#475569" stroke-width="3"/>
+  <line x1="480" y1="150" x2="800" y2="90" stroke="#475569" stroke-width="3"/>
+  <line x1="480" y1="150" x2="800" y2="210" stroke="#475569" stroke-width="3"/>
 
   <g class="route-node" onclick="triggerRouteTest('LAN')">
-    <rect x="30" y="95" width="200" height="110" rx="8" fill="#111622" stroke="#3B82F6" stroke-width="2"/>
+    <rect x="30" y="95" width="200" height="110" rx="8" fill="#0F172A" stroke="#3B82F6" stroke-width="2"/>
     <text x="130" y="135" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">Router_Branch</text>
     <text x="130" y="160" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">VLAN 10: 10.1.1.0/24</text>
     <text x="130" y="182" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">Interface: g0/0</text>
   </g>
 
   <g transform="translate(420, 95)">
-    <circle cx="60" cy="55" r="45" fill="#1B2030" stroke="#8B5CF6" stroke-width="3"/>
-    <path d="M 30 55 L 90 55 M 78 45 L 90 55 L 78 65" stroke="#8B5CF6" stroke-width="2.5" fill="none"/>
+    <circle cx="60" cy="55" r="45" fill="#334155" stroke="#A78BFA" stroke-width="3"/>
+    <path d="M 30 55 L 90 55 M 78 45 L 90 55 L 78 65" stroke="#A78BFA" stroke-width="2.5" fill="none"/>
     <text x="60" y="122" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">Core_Router</text>
   </g>
 
   <g class="route-node" onclick="triggerRouteTest('Internet')">
-    <rect x="730" y="30" width="220" height="110" rx="8" fill="#111622" stroke="#F59E0B" stroke-width="2"/>
+    <rect x="730" y="30" width="220" height="110" rx="8" fill="#0F172A" stroke="#F59E0B" stroke-width="2"/>
     <text x="840" y="70" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">ענן האינטרנט (ISP)</text>
     <text x="840" y="95" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">Route: 0.0.0.0/0</text>
     <text x="840" y="115" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">Next-Hop: 199.5.5.1</text>
   </g>
 
   <g class="route-node" onclick="triggerRouteTest('HQ')">
-    <rect x="730" y="160" width="220" height="110" rx="8" fill="#111622" stroke="#10B981" stroke-width="2"/>
+    <rect x="730" y="160" width="220" height="110" rx="8" fill="#0F172A" stroke="#10B981" stroke-width="2"/>
     <text x="840" y="200" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">רשת שרתי HQ</text>
     <text x="840" y="225" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">Route: 172.16.0.0/16</text>
     <text x="840" y="245" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">OSPF Cost: 11 (Area 0)</text>
   </g>
 
   <g id="routingTableGroup" transform="translate(150, 300)" direction="ltr" style="direction: ltr;">
-    <rect x="0" y="0" width="700" height="250" rx="10" fill="#0C101A" stroke="#222F47" stroke-width="2"/>
-    <text x="350" y="30" text-anchor="middle" fill="#8B5CF6" font-family="Rubik" font-size="15" font-weight="800">Core_Router - טבלת ניתוב פעילה (Routing Table)</text>
-    <line x1="20" y1="45" x2="680" y2="45" stroke="#222F47" stroke-width="1"/>
+    <rect x="0" y="0" width="700" height="250" rx="10" fill="#090D16" stroke="#334155" stroke-width="2"/>
+    <text x="350" y="30" text-anchor="middle" fill="#A78BFA" font-family="Rubik" font-size="15" font-weight="800">Core_Router - טבלת ניתוב פעילה (Routing Table)</text>
+    <line x1="20" y1="45" x2="680" y2="45" stroke="#334155" stroke-width="1"/>
 
-    <text x="40" y="65" text-anchor="start" fill="#64748B" font-family="Rubik" font-size="12" font-weight="700">Protocol</text>
-    <text x="180" y="65" text-anchor="start" fill="#64748B" font-family="Rubik" font-size="12" font-weight="700">Target Prefix</text>
-    <text x="360" y="65" text-anchor="start" fill="#64748B" font-family="Rubik" font-size="12" font-weight="700">AD/Metric</text>
-    <text x="530" y="65" text-anchor="start" fill="#64748B" font-family="Rubik" font-size="12" font-weight="700">Out Interface / Next-Hop</text>
+    <text x="40" y="65" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="12" font-weight="700">Protocol</text>
+    <text x="180" y="65" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="12" font-weight="700">Target Prefix</text>
+    <text x="360" y="65" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="12" font-weight="700">AD/Metric</text>
+    <text x="530" y="65" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="12" font-weight="700">Out Interface / Next-Hop</text>
 
     <g id="rtRowLAN" class="rt-row">
       <rect class="rt-row-bg" x="20" y="80" width="660" height="40" rx="4"/>
-      <text x="40" y="105" text-anchor="start" fill="#3B82F6" font-family="Fira Code" font-size="13" font-weight="600">C (Connected)</text>
+      <text x="40" y="105" text-anchor="start" fill="#60A5FA" font-family="Fira Code" font-size="13" font-weight="600">C (Connected)</text>
       <text x="180" y="105" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="13">10.1.1.0/24</text>
       <text x="360" y="105" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">[0/0] Direct</text>
       <text x="530" y="105" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">GigabitEthernet 0/0</text>
@@ -273,7 +257,7 @@ input.term-input{flex:1; background:transparent; border:none; color:#FFFFFF; fon
 
     <g id="rtRowHQ" class="rt-row">
       <rect class="rt-row-bg" x="20" y="130" width="660" height="40" rx="4"/>
-      <text x="40" y="155" text-anchor="start" fill="#F59E0B" font-family="Fira Code" font-size="13" font-weight="600">O (OSPF)</text>
+      <text x="40" y="155" text-anchor="start" fill="#FBBF24" font-family="Fira Code" font-size="13" font-weight="600">O (OSPF)</text>
       <text x="180" y="155" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="13">172.16.0.0/16</text>
       <text x="360" y="155" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">[110/11]</text>
       <text x="530" y="155" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">via Serial 0/0/0 (10.0.0.2)</text>
@@ -281,7 +265,7 @@ input.term-input{flex:1; background:transparent; border:none; color:#FFFFFF; fon
 
     <g id="rtRowInternet" class="rt-row">
       <rect class="rt-row-bg" x="20" y="180" width="660" height="40" rx="4"/>
-      <text x="40" y="205" text-anchor="start" fill="#EF4444" font-family="Fira Code" font-size="13" font-weight="600">S* (Static)</text>
+      <text x="40" y="205" text-anchor="start" fill="#F87171" font-family="Fira Code" font-size="13" font-weight="600">S* (Static)</text>
       <text x="180" y="205" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="13">0.0.0.0/0 [Default]</text>
       <text x="360" y="205" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">[1/0] Manual</text>
       <text x="530" y="205" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">via Serial 0/1/0 (199.5.5.1)</text>
@@ -305,116 +289,104 @@ input.term-input{flex:1; background:transparent; border:none; color:#FFFFFF; fon
 </div>
 </section>
 
+<!-- חלק 4: CLI -->
 <section id="s4">
 <div class="section-head">
   <div class="section-num">04 — שורת הפקודה המעשית (CLI)</div>
   <h2 class="section-title">הגדר נתיב סטטי קבוע בנתב הליבה</h2>
 </div>
-<p>המשימה: הגדר בנתב נתיב סטטי אל רשת הסניף המרוחקת `192.168.50.0/24` דרך כתובת הרגל של הנתב הבא `10.0.0.2` (Next-Hop).</p>
 
 <div class="task-box">
-  <div class="task-title">יעד הגדרה: ip route 192.168.50.0 255.255.255.0 10.0.0.2</div>
-  <div class="task-progress" id="taskProgress">שלב 1 מתוך 2</div>
+  <div class="task-title">משימת הגדרה:</div>
+  <p>יש להגדיר בנתב הליבה נתיב סטטי אל רשת הסניף המרוחקת <span class="code-text">192.168.50.0/24</span> דרך כתובת ה-Next-Hop שכתובתה <span class="code-text">10.0.0.2</span>.</p>
+  <div class="task-progress" id="taskProgress" style="font-weight: bold; color: var(--cyber-purple);">הזן פקודה בטרמינל למטה:</div>
 </div>
 
 <div class="terminal">
-  <div class="term-topbar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span style="margin-right:8px; color:var(--muted2); font-size:12px;">Core-Router(config)#</span></div>
+  <div class="term-topbar">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+    <span style="margin-right:12px; color:#94A3B8; font-size:12px;" class="code-text">Core-Router(config)#</span>
+  </div>
+  
+  <div class="term-explain-box">
+    <b>הנחיות לביצוע:</b> הקלד את הפקודה באנגלית בטרמינל. התבנית הנכונה היא: <span class="code-text">ip route [target_network] [subnet_mask] [next_hop]</span>
+  </div>
+
   <div class="term-output" id="termOutput">Core-Router> enable
 Core-Router# configure terminal
-Core-Router(config)# <span class="hint">הזן את פקודת הניתוב הסטטי המלאה ולחץ Enter</span></div>
+Core-Router(config)# <span class="hint">Type the static route command and press Enter</span></div>
+  
   <div class="term-input-row">
     <span class="prompt" id="termPrompt">Core-Router(config)#</span>
-    <input type="text" class="term-input" id="termInput" placeholder="הקלד ip route..." onkeydown="if(event.key==='Enter')submitRouteCmd()">
+    <input type="text" class="term-input" id="termInput" placeholder="ip route 192.168.50.0 255.255.255.0 10.0.0.2" onkeydown="if(event.key==='Enter')submitRouteCmd()">
   </div>
 </div>
 </section>
 
+<!-- חלק 5: תרגול ורפלקציה -->
 <section id="s5">
 <div class="section-head">
-  <div class="section-num">05 — בחינת מהנדס רשתות</div>
-  <h2 class="section-title">בחן את הידע הארכיטקטוני שלך</h2>
+  <div class="section-num">05 — טאב תרגול ורפלקציה מעשית</div>
+  <h2 class="section-title">10 תרגילים לבחינת הידע והבנת עומק</h2>
 </div>
-<div id="quizContainer"></div>
+<p>פתור את התרגילים הבאים. בחלק מהתרגילים נדרשת חישוב/פקודה ובחלקם רפלקציה והסבר מילולי.</p>
+
+<div id="exercisesContainer"></div>
 </section>
 
 <div class="completion" id="completionBox">
-  <h2>🏆 מפקד רשתות מוסמך! השלמת את האתגר!</h2>
-  <p>טבלאות הניתוב יציבות, הנתיבים הדינמיים מכוילים והמידע זורם במסלול הקצר ביותר.</p>
+  <h2>🏆 כל הכבוד! השלמת את כל היחידה בהצלחה!</h2>
+  <p>הפגנת שליטה מיומנת בניתוב סטטי, OSPF, הגדרות CLI ורפלקציה ארכיטקטונית.</p>
 </div>
 
-<div class="footer-note">מערכת תרגול והדרכה מתקדמת — הנדסת רשתות 2026</div>
+<div class="footer-note">מסלול המידע - לומדים ניתוב עם סהר · מערכת תרגול בהנדסת רשתות 2026</div>
 </div>
 
-<!-- כפתור עזרה צף קבוע בפינה התחתונה עם אווטר מובנה -->
+<!-- כפתור עזרה צף -->
 <div class="fixed bottom-6 left-6 z-50 no-print">
-    <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg shadow-cyan-500/20 transition-all duration-300 transform hover:scale-105 group border border-cyan-400/30">
-        <!-- אווטר קטן בתוך הכפתור -->
-        <div class="w-8 h-8 rounded-full border border-white/40 overflow-hidden bg-slate-950 flex-shrink-0 shadow-inner">
+    <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2.5 px-5 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 border border-white/20">
+        <div class="w-8 h-8 rounded-full border border-white/40 overflow-hidden bg-slate-950 flex-shrink-0">
             <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר בוט עזרה" class="w-full h-full object-cover">
         </div>
-        <span>בוט עזרה</span>
+        <span>בוט עזרה של סהר</span>
     </button>
 </div>
 
-<!-- חלונית עזרה צפה (Modal) עם אווטר מורחב -->
-<div id="helpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4 transition-all duration-300">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-sm w-full text-center relative shadow-2xl shadow-cyan-500/5 transform scale-95 transition-transform duration-300" id="helpModalContent">
-        <!-- כפתור סגירה X -->
-        <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-slate-800">
+<!-- חלונית עזרה צפה -->
+<div id="helpModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-stone-200 rounded-2xl p-6 max-w-sm w-full text-center relative shadow-2xl" id="helpModalContent">
+        <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 rounded-lg">
             <i data-lucide="x" class="w-5 h-5"></i>
         </button>
-        
-        <!-- אווטר התמונה בחלונית -->
-        <div class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-cyan-400/50 p-1 bg-slate-950 shadow-lg shadow-cyan-500/20 overflow-hidden">
+        <div class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-purple-500 p-1 bg-stone-100 shadow-md overflow-hidden">
             <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="תמונת בוט עזרה" class="w-full h-full object-cover rounded-full">
         </div>
-
-        <h3 class="text-lg font-black text-white mb-2">צריך עזרה במשימה?</h3>
-        <p class="text-sm text-slate-400 mb-6 leading-relaxed">בוט העזרה הרשמי של האקדמיה זמין כעת כדי לענות על שאלות, להסביר מושגים ולכוון אותך לפתרון המלא!</p>
-        
-        <!-- כפתור הפניה לקישור הבוט -->
-        <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-black py-3 px-4 rounded-xl transition-all duration-200 shadow-lg shadow-cyan-500/10">
-            <span>הפעל את בוט העזרה</span>
+        <h3 class="text-lg font-bold text-slate-800 mb-2">צריכים עזרה בניתוב?</h3>
+        <p class="text-sm text-slate-600 mb-6 leading-relaxed">הבוט של סהר זמין לעזור לכם להבין פקודות, לחשב מסיכות ולהתקדם בתרגילים!</p>
+        <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-md">
+            <span>פתיחת צ'אט עזרה</span>
             <i data-lucide="external-link" class="w-4 h-4"></i>
         </a>
     </div>
 </div>
 
-<!-- סקריפט להפעלת החלונית ואייקוני Lucide -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 
-        const modal = document.getElementById('helpModal');
-        const modalContent = document.getElementById('helpModalContent');
-        const openBtn = document.getElementById('openHelpModalBtn');
-        const closeBtn = document.getElementById('closeHelpModalBtn');
+    const modal = document.getElementById('helpModal');
+    const modalContent = document.getElementById('helpModalContent');
+    const openBtn = document.getElementById('openHelpModalBtn');
+    const closeBtn = document.getElementById('closeHelpModalBtn');
 
-        if(openBtn && modal && modalContent && closeBtn) {
-            openBtn.addEventListener('click', () => {
-                modal.classList.remove('hidden');
-                setTimeout(() => modalContent.classList.remove('scale-95'), 10);
-            });
+    if(openBtn && modal && modalContent && closeBtn) {
+        openBtn.addEventListener('click', () => { modal.classList.remove('hidden'); });
+        closeBtn.addEventListener('click', () => { modal.classList.add('hidden'); });
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
+    }
+});
 
-            closeBtn.addEventListener('click', () => {
-                modalContent.classList.add('scale-95');
-                setTimeout(() => modal.classList.add('hidden'), 150);
-            });
-
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modalContent.classList.add('scale-95');
-                    setTimeout(() => modal.classList.add('hidden'), 150);
-                }
-            });
-        }
-    });
-</script>
-
-<script>
-const PROGRESS_KEY = "route_progress_v1";
+const PROGRESS_KEY = "route_sahhar_progress_v2";
 const stepIds = ["s1","s2","s3","s4","s5"];
 let progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
 
@@ -433,6 +405,7 @@ function renderStepsBar(){
     document.getElementById("completionBox").classList.add("show");
   }
 }
+
 function markDone(id){
   progress[id] = true;
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
@@ -440,20 +413,10 @@ function markDone(id){
 }
 renderStepsBar();
 
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting && e.intersectionRatio > 0.4){
-      markDone(e.target.id);
-    }
-  });
-}, {threshold:0.4});
-stepIds.forEach(id=>{ const el = document.getElementById(id); if(el) io.observe(el); });
-
 function toggleAcc(id){
   document.getElementById(id).classList.toggle("open");
 }
 
-// קואורדינטות קבועות בדיאגרמה
 const coords = {
   LAN: { x: 130, y: 150 },
   Core: { x: 480, y: 150 },
@@ -483,32 +446,25 @@ async function triggerRouteTest(dest) {
   
   const tableGroup = document.getElementById("routingTableGroup");
   tableGroup.classList.add("routing-table-active");
-  
-  document.querySelectorAll('.rt-row').forEach(row => {
-    row.classList.remove('active-row');
-  });
+  document.querySelectorAll('.rt-row').forEach(row => row.classList.remove('active-row'));
   
   info.innerHTML = "סטטוס: מנתב חבילה אל היעד המבוקש (" + dest + ")...";
-  log("<b>[דוח ניתוב]</b> החבילה התקבלה מממשק g0/0 של רשת המקור.");
+  log("<b>[דוח ניתוב]</b> החבילה התקבלה מממשק <span class='code-text'>g0/0</span> של רשת המקור.");
   await animatePkt(coords.LAN.x, coords.LAN.y, coords.Core.x, coords.Core.y, "#3B82F6", 700);
   
   if(dest === 'HQ') {
     document.getElementById('rtRowHQ').classList.add('active-row');
-
-    log("<b>[החלטת ניתוב]</b> הנתב מתייעץ עם טבלת הניתוב! נמצאה התאמה לפרוטוקול OSPF עבור הרשת 172.16.0.0/16.");
-    log("<b>[בחירת נתיב]</b> מנותב בהצלחה דרך ממשק Serial 0/0/0 (IP: 10.0.0.2).");
+    log("<b>[החלטת ניתוב]</b> נמצאה התאמה לפרוטוקול <span class='code-text'>OSPF</span> עבור הרשת <span class='code-text'>172.16.0.0/16</span>.");
+    log("<b>[בחירת נתיב]</b> מנותב בהצלחה דרך ממשק <span class='code-text'>Serial 0/0/0</span> (כתובת: <span class='code-text'>10.0.0.2</span>).");
     await animatePkt(coords.Core.x, coords.Core.y, coords.HQ.x, coords.HQ.y, "#10B981", 800);
-    log("<b>[הצלחה]</b> החבילה הגיעה אל שרתי HQ ומעבדת נתונים.");
   } else if (dest === 'Internet') {
     document.getElementById('rtRowInternet').classList.add('active-row');
-
-    log("<b>[החלטת ניתוב]</b> היעד לא קיים ברשתות הפנימיות הידועות לנתב!");
-    log("<b>[בחירת נתיב]</b> הנתב משתמש בנתיב ברירת המחדל (Default Route) 0.0.0.0/0 השולח החוצה דרך Serial 0/1/0.");
+    log("<b>[החלטת ניתוב]</b> היעד אינו מופיע ברשתות הפנימיות הספציפיות.");
+    log("<b>[בחירת נתיב]</b> שימוש בנתיב ברירת מחדל <span class='code-text'>0.0.0.0/0</span> דרך ממשק <span class='code-text'>Serial 0/1/0</span>.");
     await animatePkt(coords.Core.x, coords.Core.y, coords.Internet.x, coords.Internet.y, "#F59E0B", 800);
-    log("<b>[הצלחה]</b> הבקשה יצאה אל רשת האינטרנט העולמית דרך ה-ISP.");
   } else {
     document.getElementById('rtRowLAN').classList.add('active-row');
-    log("<b>[החלטת ניתוב]</b> תעבורה מקומית המזוהה כרשת מחוברת ישירות (Directly Connected) בממשק GigabitEthernet 0/0.");
+    log("<b>[החלטת ניתוב]</b> תעבורה מקומית המזוהה כרשת מחוברת ישירות (<span class='code-text'>Directly Connected</span>).");
   }
   markDone("s3");
 }
@@ -517,12 +473,8 @@ function resetRouteSim() {
   document.getElementById("routeInfo").textContent = "לחץ על אחד הכפתורים כדי להזרים מידע ברכיבי הניתוב...";
   document.getElementById("routeLog").innerHTML = '<div class="log-line">המערכת מאותחלת. טבלאות הניתוב מוכנות לקבלת החלטות שכבה 3.</div>';
   document.getElementById("rtPacket").style.display = "none";
-  
-  const tableGroup = document.getElementById("routingTableGroup");
-  tableGroup.classList.remove("routing-table-active");
-  document.querySelectorAll('.rt-row').forEach(row => {
-    row.classList.remove('active-row');
-  });
+  document.getElementById("routingTableGroup").classList.remove("routing-table-active");
+  document.querySelectorAll('.rt-row').forEach(row => row.classList.remove('active-row'));
 }
 
 function log(text){
@@ -534,11 +486,9 @@ function log(text){
   p.scrollTop = p.scrollHeight;
 }
 
-// קוד פקודות ה-CLI
 const cliSteps = [
   {expect:/^ip\s+route\s+192\.168\.50\.0\s+255\.255\.255\.0\s+10\.0\.0\.2\s*$/i, ok:"מצוין! הגדרת נתיב סטטי מושלם לרשת המרוחקת דרך ה-Next-Hop המדויק."}
 ];
-let currentCli = 0;
 
 function submitRouteCmd() {
   const input = document.getElementById("termInput");
@@ -547,67 +497,124 @@ function submitRouteCmd() {
   const prompt = document.getElementById("termPrompt").textContent;
   if(val==="") return;
   
-  if(cliSteps[currentCli].expect.test(val)) {
-    output.innerHTML += "\n" + prompt + " " + val + "\n<span class='ok'>✔ " + cliSteps[currentCli].ok + "</span>";
+  if(cliSteps[0].expect.test(val)) {
+    output.innerHTML += "\n" + prompt + " " + val + "\n<span class='ok'>✔ " + cliSteps[0].ok + "</span>";
     document.getElementById("taskProgress").textContent = "הושלם בהצלחה! ✅";
     markDone("s4");
   } else {
-    output.innerHTML += "\n" + prompt + " " + val + "\n<span class='bad'>✘ שגיאה בתחביר הפקודה. תבנית נכונה: ip route [network] [subnet] [next-hop]</span>";
+    output.innerHTML += "\n" + prompt + " " + val + "\n<span class='bad'>✘ שגיאה בתחביר הפקודה. התבנית: ip route [target_net] [mask] [next_hop]</span>";
   }
   input.value = "";
   output.scrollTop = output.scrollHeight;
 }
 
-// חידון
-const quizData = [
+/* מערך 10 תרגילים ורפלקציה */
+const exercises = [
   {
-    q: "מהו המרחק המנהלי (Administrative Distance) המוגדר כברירת מחדל עבור פרוטוקול OSPF?",
-    opts: ["1", "90", "110", "120"],
-    correct: 2,
-    explain: "המרחק המנהלי של OSPF הוא 110, המייצג את מידת האמינות של הפרוטוקול ביחס לפרוטוקולים אחרים (כמו Static שהוא 1)."
+    type: "code",
+    q: "תרגיל 1: כתוב פקודת הוספת נתיב סטטי לרשת 10.20.0.0/16 דרך Next-Hop 192.168.1.1",
+    check: (v) => /^ip\s+route\s+10\.20\.0\.0\s+255\.255\.0\.0\s+192\.168\.1\.1$/i.test(v.trim()),
+    hint: "ip route 10.20.0.0 255.255.0.0 192.168.1.1"
+  },
+  {
+    type: "code",
+    q: "תרגיל 2: כתוב פקודת Default Route ששולחת את כל התעבורה הבלתי ידועה לכתובת 172.16.0.1",
+    check: (v) => /^ip\s+route\s+0\.0\.0\.0\s+0\.0\.0\.0\s+172\.16\.0\.1$/i.test(v.trim()),
+    hint: "ip route 0.0.0.0 0.0.0.0 172.16.0.1"
+  },
+  {
+    type: "text",
+    q: "תרגיל 3: מהו ערך ה-Administrative Distance (AD) של פרוטוקול OSPF ומה הוא מייצג?",
+    check: (v) => v.includes("110") && v.length > 8,
+    hint: "הערך הוא 110, והוא מייצג את רמת האמינות של הפרוטוקול ביחס למקורות מידע אחרים."
+  },
+  {
+    type: "text",
+    q: "תרגיל 4: מהו ערך ה-AD של נתיב סטטי (Static Route) והאם הוא עדיף על OSPF?",
+    check: (v) => v.includes("1") && (v.includes("עדיף") || v.includes("כן") || v.includes("אמין")),
+    hint: "ערך ה-AD של נתיב סטטי הוא 1, ולכן הוא עדיף ואמין יותר מ-OSPF (ערך נמוך מנצח)."
+  },
+  {
+    type: "code",
+    q: "תרגיל 5: מהי מסיכת הרשת (Subnet Mask) בפורמט מלא עבור פרפיקס /28?",
+    check: (v) => v.trim() === "255.255.255.240",
+    hint: "255.255.255.240"
+  },
+  {
+    type: "text",
+    q: "תרגיל 6: הסבר בקצרה מהו מנגנון Longest Prefix Match וכיצד הוא מקבל החלטה.",
+    check: (v) => v.length > 12 && (v.includes("ספציפ") || v.includes("ארוכ") || v.includes("מסיכה") || v.includes("פרפיקס")),
+    hint: "הנתב יבחר בנתיב שבו מסיכת הרשת היא הספציפית והארוכה ביותר מבין האפשרויות התואמות."
+  },
+  {
+    type: "code",
+    q: "תרגיל 7: הגדר נתיב סטטי לרשת 192.168.100.0/24 דרך הממשק המקומי GigabitEthernet 0/1",
+    check: (v) => /^ip\s+route\s+192\.168\.100\.0\s+255\.255\.255\.0\s+gigabitethernet\s*0\/1$/i.test(v.trim()) || /^ip\ route\s+192\.168\.100\.0\s+255\.255\.255\.0\s+g0\/1$/i.test(v.trim()),
+    hint: "ip route 192.168.100.0 255.255.255.0 g0/1"
+  },
+  {
+    type: "text",
+    q: "תרגיל 8 (רפלקציה): מהו היתרון המרכזי של ניתוב דינמי (OSPF) על פני ניתוב סטטי ברשת ארגונית גדולה?",
+    check: (v) => v.length > 15 && (v.includes("אוטומט") || v.includes("שינוי") || v.includes("גדול") || v.includes("תקלה") || v.includes("עדכון")),
+    hint: "הסתגלות אוטומטית לשינויים ולתקלות בטופולוגיה ללא צורך בהתערבות ידנית של מנהל הרשת."
+  },
+  {
+    type: "text",
+    q: "תרגיל 9 (רפלקציה): מתי תעדיף להשתמש בנתיב סטטי (Static) למרות שפועל ברשת OSPF?",
+    check: (v) => v.length > 12 && (v.includes("אינטרנט") || v.includes("אבטחה") || v.includes("ברירת מחדל") || v.includes("Default") || v.includes("יציאה")),
+    hint: "בעת הגדרת נתיב ברירת מחדל לאינטרנט, או עבור קישורים רגישים שדורשים שליטה מלאה ואבטחה גבוהה."
+  },
+  {
+    type: "text",
+    q: "תרגיל 10 (סיכום אישי): כתוב במשפט אחד מהו הלקח החשוב ביותר שלמדת בסדנה זו עם סהר על קבלת החלטות בנתבים.",
+    check: (v) => v.trim().length > 10,
+    hint: "כתוב תובנה אישית, למשל: הנתב תמיד מעדיף את הנתיב הספציפי ביותר ואת מקור המידע האמין ביותר."
   }
 ];
 
-function renderQuiz(){
-  const container = document.getElementById("quizContainer");
+function renderExercises() {
+  const container = document.getElementById("exercisesContainer");
   if(!container) return;
-  quizData.forEach((item, qi)=>{
-    const qDiv = document.createElement("div");
-    qDiv.className = "quiz-q";
-    qDiv.innerHTML = "<div><b>" + item.q + "</b></div>";
-    const optsDiv = document.createElement("div");
-    optsDiv.className = "quiz-opts";
-    item.opts.forEach((opt, oi)=>{
-      const b = document.createElement("div");
-      b.className = "quiz-opt";
-      b.textContent = opt;
-      b.onclick = ()=>answerQuiz(qi, oi);
-      optsDiv.appendChild(b);
-    });
-    qDiv.appendChild(optsDiv);
-    const explainDiv = document.createElement("div");
-    explainDiv.className = "quiz-explain";
-    explainDiv.id = "explain-" + qi;
-    explainDiv.textContent = item.explain;
-    qDiv.appendChild(explainDiv);
-    container.appendChild(qDiv);
+  container.innerHTML = "";
+  
+  exercises.forEach((ex, idx) => {
+    const card = document.createElement("div");
+    card.className = "ex-card";
+    
+    let inputHtml = ex.type === "code" 
+      ? `<input type="text" class="ex-input" id="exIn_${idx}" placeholder="הזן פקודה / תשובה באנגלית..." onkeydown="if(event.key==='Enter')checkEx(${idx})">`
+      : `<textarea class="ex-textarea" id="exIn_${idx}" placeholder="כתוב את הסברך ורפלקצייתך בעברית..."></textarea>`;
+      
+    card.innerHTML = `
+      <div class="ex-num">QUESTION ${idx + 1} OF 10</div>
+      <div class="ex-q">${ex.q}</div>
+      ${inputHtml}
+      <button class="btn" style="padding: 6px 14px; font-size: 12px;" onclick="checkEx(${idx})">בדוק תשובה</button>
+      <div class="ex-feedback" id="exFb_${idx}"></div>
+    `;
+    container.appendChild(card);
   });
 }
-let quizAnswered = {};
-function answerQuiz(qi, oi){
-  if(quizAnswered[qi]) return;
-  quizAnswered[qi] = true;
-  const item = quizData[qi];
-  const opts = document.querySelectorAll(".quiz-q")[qi].querySelectorAll(".quiz-opt");
-  opts.forEach((el, i)=>{
-    el.classList.add("disabled");
-    if(i === item.correct) el.classList.add("correct");
-    else if(i === oi) el.classList.add("wrong");
-  });
-  document.getElementById("explain-"+qi).classList.add("show");
+
+function checkEx(idx) {
+  const ex = exercises[idx];
+  const inputEl = document.getElementById(`exIn_${idx}`);
+  const fbEl = document.getElementById(`exFb_${idx}`);
+  const val = inputEl.value;
+  
+  if (ex.check(val)) {
+    fbEl.className = "ex-feedback correct";
+    fbEl.innerHTML = "✔ תשובה מעולה! נכון מאוד.";
+  } else {
+    fbEl.className = "ex-feedback wrong";
+    fbEl.innerHTML = `✘ תשובה לא מדויקת. רמז / תשובה מצופה: <span class="code-text">${ex.hint}</span>`;
+  }
+  
+  // בדיקה אם כל התרגילים נענו
   markDone("s5");
 }
-renderQuiz();
+
+renderExercises();
 </script>
 </body>
 </html>
