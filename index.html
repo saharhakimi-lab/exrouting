@@ -11,7 +11,7 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
 :root {
-  --bg: #FAF7F0; /* רקע שמנת */
+  --bg: #FAF7F0;
   --panel: #FFFFFF;
   --panel2: #F3EEE3;
   --panel3: #E8E1D1;
@@ -93,6 +93,8 @@ section { padding: 40px 0; border-top: 1px solid var(--border); }
 button.btn { background: var(--cyber-purple); color: #FFFFFF; border: none; border-radius: 8px; padding: 10px 20px; font-family: 'Rubik'; font-weight: 600; font-size: 14px; cursor: pointer; transition: background 0.2s; }
 button.btn:hover { opacity: 0.9; }
 button.btn.secondary { background: var(--panel3); color: var(--text); border: 1px solid var(--border2); }
+button.btn.pause { background: #D97706; }
+button.btn.teacher { background: #059669; }
 
 .rt-row { transition: opacity 0.3s ease; }
 .rt-row-bg { fill: transparent; stroke: transparent; transition: fill 0.3s, stroke 0.3s; }
@@ -102,7 +104,7 @@ button.btn.secondary { background: var(--panel3); color: var(--text); border: 1p
 .log-panel { background: #0F172A; border: 1px solid var(--border2); border-radius: 10px; margin-top: 16px; padding: 14px; font-family: 'Fira Code', monospace; font-size: 13px; max-height: 200px; overflow-y: auto; color: #CBD5E1; border-right: 3px solid var(--primary-blue); }
 .log-line { margin-bottom: 6px; }
 
-/* טרמינל סיסקו - מעוצב עם LTR להקלדה ו-RTL להסברים */
+/* טרמינל סיסקו */
 .terminal { background: #0F172A; border: 1px solid var(--cyber-purple); border-radius: 10px; padding: 18px; color: #F8FAFC; }
 .term-topbar { display: flex; gap: 6px; margin-bottom: 12px; align-items: center; }
 .dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -119,7 +121,7 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 .task-box { background: var(--panel2); border: 1px solid var(--border2); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
 .task-title { font-weight: 600; margin-bottom: 4px; color: var(--ospf-gold); }
 
-/* טאב התרגילים והרפלקציה */
+/* תרגילים */
 .ex-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
 .ex-num { font-size: 12px; font-family: 'Fira Code', monospace; color: var(--cyber-purple); font-weight: 700; margin-bottom: 4px; }
 .ex-q { font-weight: 600; font-size: 15px; color: #1A202C; margin-bottom: 10px; }
@@ -128,6 +130,7 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 .ex-feedback { font-size: 13px; margin-top: 6px; padding: 8px 12px; border-radius: 6px; display: none; }
 .ex-feedback.correct { display: block; background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
 .ex-feedback.wrong { display: block; background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+.teacher-answer { font-size: 13px; margin-top: 8px; padding: 10px; border-radius: 6px; background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; display: none; }
 
 .completion { text-align: center; padding: 40px 20px; background: var(--panel); border: 2px solid var(--bg-green); border-radius: var(--radius); display: none; margin-top: 20px; }
 .completion.show { display: block; }
@@ -150,7 +153,7 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
   <div class="hero-text">
     <div class="eyebrow">Layer 3 Core Routing · OSPF & Static Path Selection</div>
     <div class="hero-title-wrap">
-      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מטורלל מסתובב" class="hero-avatar-spin">
+      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מסתובב" class="hero-avatar-spin">
       <h1 class="title">מסלול המידע - <span>לומדים ניתוב עם סהר</span></h1>
     </div>
     <p class="subtitle">ברוכים הבאים לסדנת הניתוב המתקדמת. כאן תלמדו כיצד נתבים מקבלים החלטות, מעדכנים את טבלת הניתוב (<span class="code-text">Routing Table</span>) וקובעים את הנתיב האופטימלי ברשת.</p>
@@ -272,7 +275,11 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
     </g>
   </g>
 
-  <circle id="rtPacket" r="12" fill="#8B5CF6" stroke="#FFFFFF" stroke-width="2" style="display:none;"/>
+  <!-- אלמנטים נעים: חבילה + טקסט מידע נילווה -->
+  <g id="packetGroup" style="display:none;">
+    <circle id="rtPacket" r="14" fill="#8B5CF6" stroke="#FFFFFF" stroke-width="2"/>
+    <text id="rtPacketLabel" text-anchor="middle" y="-20" fill="#6EE7B7" font-family="Fira Code" font-size="12" font-weight="700" style="direction: ltr;"></text>
+  </g>
 </svg>
 
 <div class="controls-row">
@@ -281,7 +288,8 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 <div class="controls-row">
   <button class="btn" onclick="triggerRouteTest('HQ')">ניתוב לשרת הראשי (OSPF Path) 🌲</button>
   <button class="btn" onclick="triggerRouteTest('Internet')">גלישה לאתר חיצוני (Default Route) 🌎</button>
-  <button class="btn secondary" onclick="resetRouteSim()">אתחל טבלאות</button>
+  <button class="btn pause" id="pauseBtn" onclick="togglePauseSimulation()">השהה סימולציה ⏸️</button>
+  <button class="btn secondary" onclick="resetRouteSim()">אתחל טבלאות 🔄</button>
 </div>
 <div class="log-panel" id="routeLog">
   <div class="log-line">המערכת מאותחלת. טבלאות הניתוב מוכנות לקבלת החלטות שכבה 3.</div>
@@ -332,6 +340,10 @@ Core-Router(config)# <span class="hint">Type the static route command and press 
 <p>פתור את התרגילים הבאים. בחלק מהתרגילים נדרשת חישוב/פקודה ובחלקם רפלקציה והסבר מילולי.</p>
 
 <div id="exercisesContainer"></div>
+
+<div style="margin-top: 25px; text-align: center;">
+  <button class="btn teacher" onclick="unlockTeacherAnswers()">🔑 למורה (הצגת תשובות)</button>
+</div>
 </section>
 
 <div class="completion" id="completionBox">
@@ -424,22 +436,59 @@ const coords = {
   HQ: { x: 840, y: 210 }
 };
 
-async function animatePkt(x1, y1, x2, y2, color, duration) {
+/* מנגנון השהיה והאטת החבילה */
+let isPaused = false;
+let currentAnimId = 0;
+
+function togglePauseSimulation() {
+  isPaused = !isPaused;
+  const btn = document.getElementById("pauseBtn");
+  if (isPaused) {
+    btn.textContent = "שחרר מהשהיה ▶️";
+    btn.style.background = "#059669";
+  } else {
+    btn.textContent = "השהה סימולציה ⏸️";
+    btn.style.background = "#D97706";
+  }
+}
+
+async function animatePkt(x1, y1, x2, y2, color, labelText, duration = 2500) {
+  const animId = ++currentAnimId;
+  const pktGroup = document.getElementById("packetGroup");
   const pkt = document.getElementById("rtPacket");
+  const label = document.getElementById("rtPacketLabel");
+  
   pkt.setAttribute("fill", color);
-  pkt.style.display = "block";
-  const steps = 30;
+  label.textContent = labelText;
+  pktGroup.style.display = "block";
+  
+  const steps = 80;
   for(let i=0; i<=steps; i++){
+    if (animId !== currentAnimId) return; // ביטול הנפשה קודמת אם הותחלה חדשה
+    
+    while(isPaused) {
+      await new Promise(r => setTimeout(r, 100));
+      if (animId !== currentAnimId) return;
+    }
+    
     const t = i/steps;
     const cx = x1 + (x2 - x1)*t;
     const cy = y1 + (y2 - y1)*t;
+    
     pkt.setAttribute("cx", cx);
     pkt.setAttribute("cy", cy);
+    label.setAttribute("x", cx);
+    label.setAttribute("y", cy - 20);
+    
     await new Promise(r => setTimeout(r, duration / steps));
   }
 }
 
 async function triggerRouteTest(dest) {
+  isPaused = false;
+  document.getElementById("pauseBtn").textContent = "השהה סימולציה ⏸️";
+  document.getElementById("pauseBtn").style.background = "#D97706";
+  
   const info = document.getElementById("routeInfo");
   const logBox = document.getElementById("routeLog");
   logBox.innerHTML = "";
@@ -450,18 +499,19 @@ async function triggerRouteTest(dest) {
   
   info.innerHTML = "סטטוס: מנתב חבילה אל היעד המבוקש (" + dest + ")...";
   log("<b>[דוח ניתוב]</b> החבילה התקבלה מממשק <span class='code-text'>g0/0</span> של רשת המקור.");
-  await animatePkt(coords.LAN.x, coords.LAN.y, coords.Core.x, coords.Core.y, "#3B82F6", 700);
   
   if(dest === 'HQ') {
+    await animatePkt(coords.LAN.x, coords.LAN.y, coords.Core.x, coords.Core.y, "#3B82F6", "Dst: 172.16.5.10", 2200);
     document.getElementById('rtRowHQ').classList.add('active-row');
     log("<b>[החלטת ניתוב]</b> נמצאה התאמה לפרוטוקול <span class='code-text'>OSPF</span> עבור הרשת <span class='code-text'>172.16.0.0/16</span>.");
     log("<b>[בחירת נתיב]</b> מנותב בהצלחה דרך ממשק <span class='code-text'>Serial 0/0/0</span> (כתובת: <span class='code-text'>10.0.0.2</span>).");
-    await animatePkt(coords.Core.x, coords.Core.y, coords.HQ.x, coords.HQ.y, "#10B981", 800);
+    await animatePkt(coords.Core.x, coords.Core.y, coords.HQ.x, coords.HQ.y, "#10B981", "via 10.0.0.2", 2200);
   } else if (dest === 'Internet') {
+    await animatePkt(coords.LAN.x, coords.LAN.y, coords.Core.x, coords.Core.y, "#3B82F6", "Dst: 8.8.8.8", 2200);
     document.getElementById('rtRowInternet').classList.add('active-row');
     log("<b>[החלטת ניתוב]</b> היעד אינו מופיע ברשתות הפנימיות הספציפיות.");
     log("<b>[בחירת נתיב]</b> שימוש בנתיב ברירת מחדל <span class='code-text'>0.0.0.0/0</span> דרך ממשק <span class='code-text'>Serial 0/1/0</span>.");
-    await animatePkt(coords.Core.x, coords.Core.y, coords.Internet.x, coords.Internet.y, "#F59E0B", 800);
+    await animatePkt(coords.Core.x, coords.Core.y, coords.Internet.x, coords.Internet.y, "#F59E0B", "via 199.5.5.1", 2200);
   } else {
     document.getElementById('rtRowLAN').classList.add('active-row');
     log("<b>[החלטת ניתוב]</b> תעבורה מקומית המזוהה כרשת מחוברת ישירות (<span class='code-text'>Directly Connected</span>).");
@@ -470,9 +520,11 @@ async function triggerRouteTest(dest) {
 }
 
 function resetRouteSim() {
+  currentAnimId++;
+  isPaused = false;
   document.getElementById("routeInfo").textContent = "לחץ על אחד הכפתורים כדי להזרים מידע ברכיבי הניתוב...";
   document.getElementById("routeLog").innerHTML = '<div class="log-line">המערכת מאותחלת. טבלאות הניתוב מוכנות לקבלת החלטות שכבה 3.</div>';
-  document.getElementById("rtPacket").style.display = "none";
+  document.getElementById("packetGroup").style.display = "none";
   document.getElementById("routingTableGroup").classList.remove("routing-table-active");
   document.querySelectorAll('.rt-row').forEach(row => row.classList.remove('active-row'));
 }
@@ -512,63 +564,73 @@ function submitRouteCmd() {
 const exercises = [
   {
     type: "code",
-    q: "תרגיל 1: כתוב פקודת הוספת נתיב סטטי לרשת 10.20.0.0/16 דרך Next-Hop 192.168.1.1",
+    q: "תרגיל 1: כתוב פקודת הוספת נתיב סטטי לרשת <span class='code-text'>10.20.0.0/16</span> דרך Next-Hop <span class='code-text'>192.168.1.1</span>",
     check: (v) => /^ip\s+route\s+10\.20\.0\.0\s+255\.255\.0\.0\s+192\.168\.1\.1$/i.test(v.trim()),
-    hint: "ip route 10.20.0.0 255.255.0.0 192.168.1.1"
+    hint: "ip route 10.20.0.0 255.255.0.0 192.168.1.1",
+    teacherSolution: "פקודה מדויקת: ip route 10.20.0.0 255.255.0.0 192.168.1.1"
   },
   {
     type: "code",
-    q: "תרגיל 2: כתוב פקודת Default Route ששולחת את כל התעבורה הבלתי ידועה לכתובת 172.16.0.1",
+    q: "תרגיל 2: כתוב פקודת Default Route ששולחת את כל התעבורה הבלתי ידועה לכתובת <span class='code-text'>172.16.0.1</span>",
     check: (v) => /^ip\s+route\s+0\.0\.0\.0\s+0\.0\.0\.0\s+172\.16\.0\.1$/i.test(v.trim()),
-    hint: "ip route 0.0.0.0 0.0.0.0 172.16.0.1"
+    hint: "ip route 0.0.0.0 0.0.0.0 172.16.0.1",
+    teacherSolution: "פקודה מדויקת: ip route 0.0.0.0 0.0.0.0 172.16.0.1"
   },
   {
     type: "text",
     q: "תרגיל 3: מהו ערך ה-Administrative Distance (AD) של פרוטוקול OSPF ומה הוא מייצג?",
     check: (v) => v.includes("110") && v.length > 8,
-    hint: "הערך הוא 110, והוא מייצג את רמת האמינות של הפרוטוקול ביחס למקורות מידע אחרים."
+    hint: "הערך הוא 110, והוא מייצג את רמת האמינות של הפרוטוקול ביחס למקורות מידע אחרים.",
+    teacherSolution: "ערך AD של OSPF הוא 110. ערך זה מייצג אמינות יחסית ביחס לפרוטוקולים אחרים (ככל שהמספר נמוך יותר, המקור נחשב אמין יותר)."
   },
   {
     type: "text",
     q: "תרגיל 4: מהו ערך ה-AD של נתיב סטטי (Static Route) והאם הוא עדיף על OSPF?",
     check: (v) => v.includes("1") && (v.includes("עדיף") || v.includes("כן") || v.includes("אמין")),
-    hint: "ערך ה-AD של נתיב סטטי הוא 1, ולכן הוא עדיף ואמין יותר מ-OSPF (ערך נמוך מנצח)."
+    hint: "ערך ה-AD של נתיב סטטי הוא 1, ולכן הוא עדיף ואמין יותר מ-OSPF (ערך נמוך מנצח).",
+    teacherSolution: "ערך ה-AD הוא 1. הוא עדיף על OSPF כי 1 נמוך מ-110 (הנתב תמיד מעדיף AD נמוך יותר)."
   },
   {
     type: "code",
-    q: "תרגיל 5: מהי מסיכת הרשת (Subnet Mask) בפורמט מלא עבור פרפיקס /28?",
+    q: "תרגיל 5: מהי מסיכת הרשת (Subnet Mask) בפורמט מלא עבור פרפיקס <span class='code-text'>/28</span>?",
     check: (v) => v.trim() === "255.255.255.240",
-    hint: "255.255.255.240"
+    hint: "255.255.255.240",
+    teacherSolution: "תשובה: 255.255.255.240"
   },
   {
     type: "text",
     q: "תרגיל 6: הסבר בקצרה מהו מנגנון Longest Prefix Match וכיצד הוא מקבל החלטה.",
     check: (v) => v.length > 12 && (v.includes("ספציפ") || v.includes("ארוכ") || v.includes("מסיכה") || v.includes("פרפיקס")),
-    hint: "הנתב יבחר בנתיב שבו מסיכת הרשת היא הספציפית והארוכה ביותר מבין האפשרויות התואמות."
+    hint: "הנתב יבחר בנתיב שבו מסיכת הרשת היא הספציפית והארוכה ביותר מבין האפשרויות התואמות.",
+    teacherSolution: "מנגנון Longest Prefix Match מעדיף תמיד את הרשומות בעלות מסיכת הרשת הספציפית והארוכה ביותר (למשל /28 מעדיף על /16)."
   },
   {
     type: "code",
-    q: "תרגיל 7: הגדר נתיב סטטי לרשת 192.168.100.0/24 דרך הממשק המקומי GigabitEthernet 0/1",
+    q: "תרגיל 7: הגדר נתיב סטטי לרשת <span class='code-text'>192.168.100.0/24</span> דרך הממשק המקומי <span class='code-text'>GigabitEthernet 0/1</span>",
     check: (v) => /^ip\s+route\s+192\.168\.100\.0\s+255\.255\.255\.0\s+gigabitethernet\s*0\/1$/i.test(v.trim()) || /^ip\ route\s+192\.168\.100\.0\s+255\.255\.255\.0\s+g0\/1$/i.test(v.trim()),
-    hint: "ip route 192.168.100.0 255.255.255.0 g0/1"
+    hint: "ip route 192.168.100.0 255.255.255.0 g0/1",
+    teacherSolution: "פקודה מדויקת: ip route 192.168.100.0 255.255.255.0 GigabitEthernet 0/1 (או g0/1)"
   },
   {
     type: "text",
     q: "תרגיל 8 (רפלקציה): מהו היתרון המרכזי של ניתוב דינמי (OSPF) על פני ניתוב סטטי ברשת ארגונית גדולה?",
     check: (v) => v.length > 15 && (v.includes("אוטומט") || v.includes("שינוי") || v.includes("גדול") || v.includes("תקלה") || v.includes("עדכון")),
-    hint: "הסתגלות אוטומטית לשינויים ולתקלות בטופולוגיה ללא צורך בהתערבות ידנית של מנהל הרשת."
+    hint: "הסתגלות אוטומטית לשינויים ולתקלות בטופולוגיה ללא צורך בהתערבות ידנית של מנהל הרשת.",
+    teacherSolution: "יתרון מרכזי: עדכון דינמי ואוטומטי של טבלאות הניתוב במקרה של ניתוק קישורים או שינויים בטופולוגיה, ללא צורך בעדכון ידני."
   },
   {
     type: "text",
     q: "תרגיל 9 (רפלקציה): מתי תעדיף להשתמש בנתיב סטטי (Static) למרות שפועל ברשת OSPF?",
     check: (v) => v.length > 12 && (v.includes("אינטרנט") || v.includes("אבטחה") || v.includes("ברירת מחדל") || v.includes("Default") || v.includes("יציאה")),
-    hint: "בעת הגדרת נתיב ברירת מחדל לאינטרנט, או עבור קישורים רגישים שדורשים שליטה מלאה ואבטחה גבוהה."
+    hint: "בעת הגדרת נתיב ברירת מחדל לאינטרנט, או עבור קישורים רגישים שדורשים שליטה מלאה ואבטחה גבוהה.",
+    teacherSolution: "במקרים של הגדרת נתיב ברירת מחדל (Default Route) ליציאה לאינטרנט, או כאשר רוצים להבטיח נתיב קבוע ומאובטח ללא הדהוד תעבורת OSPF."
   },
   {
     type: "text",
     q: "תרגיל 10 (סיכום אישי): כתוב במשפט אחד מהו הלקח החשוב ביותר שלמדת בסדנה זו עם סהר על קבלת החלטות בנתבים.",
     check: (v) => v.trim().length > 10,
-    hint: "כתוב תובנה אישית, למשל: הנתב תמיד מעדיף את הנתיב הספציפי ביותר ואת מקור המידע האמין ביותר."
+    hint: "כתוב תובנה אישית, למשל: הנתב תמיד מעדיף את הנתיב הספציפי ביותר ואת מקור המידע האמין ביותר.",
+    teacherSolution: "תשובה חופשית של התלמיד. ציפייה: התייחסות למדרג ההחלטות (Subnet Specificity -> Administrative Distance -> Metric)."
   }
 ];
 
@@ -591,6 +653,7 @@ function renderExercises() {
       ${inputHtml}
       <button class="btn" style="padding: 6px 14px; font-size: 12px;" onclick="checkEx(${idx})">בדוק תשובה</button>
       <div class="ex-feedback" id="exFb_${idx}"></div>
+      <div class="teacher-answer" id="teachAns_${idx}"><b>💡 תשובת מורה מוצעת:</b> ${ex.teacherSolution}</div>
     `;
     container.appendChild(card);
   });
@@ -610,8 +673,20 @@ function checkEx(idx) {
     fbEl.innerHTML = `✘ תשובה לא מדויקת. רמז / תשובה מצופה: <span class="code-text">${ex.hint}</span>`;
   }
   
-  // בדיקה אם כל התרגילים נענו
   markDone("s5");
+}
+
+function unlockTeacherAnswers() {
+  const pwd = prompt("אנא הזן סיסמת מורה:");
+  if (pwd === "sahar") {
+    alert("אימות הצליח! התשובות הוצגו מתחת לכל תרגיל.");
+    exercises.forEach((_, idx) => {
+      const el = document.getElementById(`teachAns_${idx}`);
+      if (el) el.style.display = "block";
+    });
+  } else if (pwd !== null) {
+    alert("סיסמה שגויה!");
+  }
 }
 
 renderExercises();
