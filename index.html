@@ -6,7 +6,7 @@
 <title>מסלול המידע - לומדים ניתוב עם סהר</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght=400;500;600;700;800&family=Fira+Code:wght=400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
@@ -177,7 +177,7 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
       <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מסתובב" class="hero-avatar-spin">
       <h1 class="title">מסלול המידע - <span>לומדים ניתוב עם סהר</span></h1>
     </div>
-    <p class="subtitle">ברוכים הבאים לסדנת הניתוב המתקדמת. כאן תלמדו כיצד נתבים מקבלים החלטות, מעדכנים את טבלת הניתוב (<span class="framed-term">Routing Table</span>) וקובעים את הנתיב האופטימלי ברשת.</p>
+    <p class="subtitle">ברוכים הבאים לסדנת הניתוב המתקדמת. כאן תלמדו כיצד נתבים מקבלים החלטות, מעדכנים את טבלת הניתוב <span class="framed-term">Routing Table</span> וקובעים את הנתיב האופטימלי ברשת.</p>
   </div>
 </header>
 
@@ -190,13 +190,13 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 
 <div class="grid2">
   <div class="card concept-card">
-    <h3>📌 ניתוב סטטי (<span class="framed-term">Static</span>) וברירת מחדל</h3>
+    <h3>📌 ניתוב סטטי <span class="framed-term">Static</span> וברירת מחדל</h3>
     <p><span class="framed-term">Static Route</span> נתיב המוגדר ידנית על ידי מנהל הרשת. יציב, מאובטח ואינו צורך רוחב פס לעדכונים.</p>
-    <p><span class="framed-term">Default Route (0.0.0.0/0)</span> נתיב השולט בכל תעבורה שאין לה יעד מוגדר בטבלה — משמש בדרך כלל ליציאה לרשת האינטרנט.</p>
+    <p><span class="framed-term">Default Route 0.0.0.0/0</span> נתיב השולט בכל תעבורה שאין לה יעד מוגדר בטבלה — משמש בדרך כלל ליציאה לרשת האינטרנט.</p>
   </div>
   <div class="card concept-card">
-    <h3>⚡ ניתוב דינמי (<span class="framed-term">OSPF</span>) והמרחק המנהלי</h3>
-    <p><span class="framed-term">OSPF (Open Shortest Path First)</span> פרוטוקול ניתוב דינמי מבוסס <span class="framed-term">Link-State</span>, המחשב נתיבים אוטומטית לפי רוחב פס (<span class="framed-term">Cost</span>).</p>
+    <h3>⚡ ניתוב דינמי <span class="framed-term">OSPF</span> והמרחק המנהלי</h3>
+    <p><span class="framed-term">OSPF Open Shortest Path First</span> פרוטוקול ניתוב דינמי מבוסס <span class="framed-term">Link-State</span>, המחשב נתיבים אוטומטית לפי רוחב פס <span class="framed-term">Cost</span>.</p>
     <p><span class="framed-term">Administrative Distance</span> מדד האמינות של הנתיב. ניתוב סטטי מקבל ערך אמינות של <span class="framed-term">1</span>, בעוד <span class="framed-term">OSPF</span> מקבל ערך של <span class="framed-term">110</span>.</p>
   </div>
 </div>
@@ -211,11 +211,11 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 
 <div id="acc1" class="accordion">
   <div class="acc-head" onclick="toggleAcc('acc1')">
-    <span>מהו חוק ההתאמה הארוכה ביותר (<span class="framed-term">Longest Prefix Match</span>)?</span>
+    <span>מהו חוק ההתאמה הארוכה ביותר <span class="framed-term">Longest Prefix Match</span>?</span>
     <span class="acc-arrow">▾</span>
   </div>
   <div class="acc-body"><div class="acc-body-inner">
-    <p>כאשר לנתב יש מספר נתיבים שונים המובילים לאותו יעד, הוא תמיד יבחר בנתיב עם <b>מסיכת הרשת הארוכה והספציפית ביותר</b> (למשל, נתיב אל טווח <span class="framed-term">10.0.1.0/28</span> ינצח נתיב אל טווח <span class="framed-term">10.0.0.0/16</span>).</p>
+    <p>כאשר לנתב יש מספר נתיבים שונים המובילים לאותו יעד, הוא תמיד יבחר בנתיב עם <b>מסיכת הרשת הארוכה והספציפית ביותר</b>, למשל, נתיב אל טווח <span class="framed-term">10.0.1.0/28</span> ינצח נתיב אל טווח <span class="framed-term">10.0.0.0/16</span>.</p>
   </div></div>
 </div>
 </section>
@@ -249,7 +249,7 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 
   <g class="route-node" onclick="triggerRouteTest('Internet')">
     <rect x="730" y="30" width="220" height="110" rx="8" fill="#0F172A" stroke="#F59E0B" stroke-width="2"/>
-    <text x="840" y="70" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">ענן האינטרנט (ISP)</text>
+    <text x="840" y="70" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">ענן האינטרנט ISP</text>
     <text x="840" y="95" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">Route: 0.0.0.0/0</text>
     <text x="840" y="115" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">Next-Hop: 199.5.5.1</text>
   </g>
@@ -258,12 +258,12 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
     <rect x="730" y="160" width="220" height="110" rx="8" fill="#0F172A" stroke="#10B981" stroke-width="2"/>
     <text x="840" y="200" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">רשת שרתי HQ</text>
     <text x="840" y="225" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">Route: 172.16.0.0/16</text>
-    <text x="840" y="245" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">OSPF Cost: 11 (Area 0)</text>
+    <text x="840" y="245" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">OSPF Cost: 11 Area 0</text>
   </g>
 
   <g id="routingTableGroup" transform="translate(150, 300)" direction="ltr" style="direction: ltr;">
     <rect x="0" y="0" width="700" height="250" rx="10" fill="#090D16" stroke="#334155" stroke-width="2"/>
-    <text x="350" y="30" text-anchor="middle" fill="#A78BFA" font-family="Rubik" font-size="15" font-weight="800">Core_Router - טבלת ניתוב פעילה (Routing Table)</text>
+    <text x="350" y="30" text-anchor="middle" fill="#A78BFA" font-family="Rubik" font-size="15" font-weight="800">Core_Router - טבלת ניתוב פעילה Routing Table</text>
     <line x1="20" y1="45" x2="680" y2="45" stroke="#334155" stroke-width="1"/>
 
     <text x="40" y="65" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="12" font-weight="700">Protocol</text>
@@ -273,26 +273,26 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 
     <g id="rtRowLAN" class="rt-row">
       <rect class="rt-row-bg" x="20" y="80" width="660" height="40" rx="4"/>
-      <text x="40" y="105" text-anchor="start" fill="#60A5FA" font-family="Fira Code" font-size="13" font-weight="600">C (Connected)</text>
+      <text x="40" y="105" text-anchor="start" fill="#60A5FA" font-family="Fira Code" font-size="13" font-weight="600">C Connected</text>
       <text x="180" y="105" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="13">10.1.1.0/24</text>
-      <text x="360" y="105" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">[0/0] Direct</text>
+      <text x="360" y="105" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">0/0 Direct</text>
       <text x="530" y="105" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">GigabitEthernet 0/0</text>
     </g>
 
     <g id="rtRowHQ" class="rt-row">
       <rect class="rt-row-bg" x="20" y="130" width="660" height="40" rx="4"/>
-      <text x="40" y="155" text-anchor="start" fill="#FBBF24" font-family="Fira Code" font-size="13" font-weight="600">O (OSPF)</text>
+      <text x="40" y="155" text-anchor="start" fill="#FBBF24" font-family="Fira Code" font-size="13" font-weight="600">O OSPF</text>
       <text x="180" y="155" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="13">172.16.0.0/16</text>
-      <text x="360" y="155" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">[110/11]</text>
-      <text x="530" y="155" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">via Serial 0/0/0 (10.0.0.2)</text>
+      <text x="360" y="155" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">110/11</text>
+      <text x="530" y="155" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">via Serial 0/0/0 10.0.0.2</text>
     </g>
 
     <g id="rtRowInternet" class="rt-row">
       <rect class="rt-row-bg" x="20" y="180" width="660" height="40" rx="4"/>
-      <text x="40" y="205" text-anchor="start" fill="#F87171" font-family="Fira Code" font-size="13" font-weight="600">S* (Static)</text>
-      <text x="180" y="205" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="13">0.0.0.0/0 [Default]</text>
-      <text x="360" y="205" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">[1/0] Manual</text>
-      <text x="530" y="205" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">via Serial 0/1/0 (199.5.5.1)</text>
+      <text x="40" y="205" text-anchor="start" fill="#F87171" font-family="Fira Code" font-size="13" font-weight="600">S* Static</text>
+      <text x="180" y="205" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="13">0.0.0.0/0 Default</text>
+      <text x="360" y="205" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">1/0 Manual</text>
+      <text x="530" y="205" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">via Serial 0/1/0 199.5.5.1</text>
     </g>
   </g>
 
@@ -307,8 +307,8 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
   <span id="routeInfo" style="color:var(--muted); font-size:14px;">לחץ על אחד הכפתורים כדי להזרים מידע ולראות איזו שורת ניתוב נבחרת...</span>
 </div>
 <div class="controls-row">
-  <button class="btn" onclick="triggerRouteTest('HQ')">ניתוב לשרת הראשי (<span class="framed-term" style="border-color:white; color:white; background:transparent;">OSPF Path</span>) 🌲</button>
-  <button class="btn" onclick="triggerRouteTest('Internet')">גלישה לאתר חיצוני (<span class="framed-term" style="border-color:white; color:white; background:transparent;">Default Route</span>) 🌎</button>
+  <button class="btn" onclick="triggerRouteTest('HQ')">ניתוב לשרת הראשי <span class="framed-term" style="border-color:white; color:white; background:transparent;">OSPF Path</span> 🌲</button>
+  <button class="btn" onclick="triggerRouteTest('Internet')">גלישה לאתר חיצוני <span class="framed-term" style="border-color:white; color:white; background:transparent;">Default Route</span> 🌎</button>
   <button class="btn pause" id="pauseBtn" onclick="togglePauseSimulation()">השהה סימולציה ⏸️</button>
   <button class="btn secondary" onclick="resetRouteSim()">אתחל טבלאות 🔄</button>
 </div>
@@ -321,7 +321,7 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 <!-- חלק 4: CLI -->
 <section id="s4">
 <div class="section-head">
-  <div class="section-num">04 — שורת הפקודה המעשית (<span class="framed-term">CLI</span>)</div>
+  <div class="section-num">04 — שורת הפקודה המעשית <span class="framed-term">CLI</span></div>
   <h2 class="section-title">הגדר נתיב סטטי קבוע בנתב הליבה</h2>
 </div>
 
@@ -334,19 +334,19 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 <div class="terminal">
   <div class="term-topbar">
     <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-    <span style="margin-right:12px; color:#94A3B8; font-size:12px;" class="code-text">Core-Router(config)#</span>
+    <span style="margin-right:12px; color:#94A3B8; font-size:12px;" class="code-text">Core-Router#</span>
   </div>
   
   <div class="term-explain-box">
-    <b>הנחיות לביצוע:</b> הקלד את הפקודה באנגלית בטרמינל. התבנית הנכונה היא: <span class="framed-term">ip route [target_network] [subnet_mask] [next_hop]</span>
+    <b>הנחיות לביצוע:</b> הקלד את הפקודה באנגלית בטרמינל. התבנית הנכונה היא: <span class="framed-term">ip route target_network subnet_mask next_hop</span>
   </div>
 
   <div class="term-output" id="termOutput">Core-Router> enable
 Core-Router# configure terminal
-Core-Router(config)# <span class="hint">Type the static route command and press Enter</span></div>
+Core-Router# <span class="hint">Type the static route command and press Enter</span></div>
   
   <div class="term-input-row">
-    <span class="prompt" id="termPrompt">Core-Router(config)#</span>
+    <span class="prompt" id="termPrompt">Core-Router#</span>
     <input type="text" class="term-input" id="termInput" placeholder="ip route 192.168.50.0 255.255.255.0 10.0.0.2" onkeydown="if(event.key==='Enter')submitRouteCmd()">
   </div>
 </div>
@@ -358,12 +358,12 @@ Core-Router(config)# <span class="hint">Type the static route command and press 
   <div class="section-num">05 — טאב תרגול ורפלקציה מעשית</div>
   <h2 class="section-title">10 תרגילים לבחינת הידע והבנת עומק</h2>
 </div>
-<p>פתור את התרגילים הבאים. בחלק מהתרגילים נדרשת חישוב/פקודה ובחלקם רפלקציה והסבר מילולי.</p>
+<p>פתור את התרגילים הבאים. בחלק מהתרגילים נדרשת חישוב או פקודה ובחלקם רפלקציה והסבר מילולי.</p>
 
 <div id="exercisesContainer"></div>
 
 <div style="margin-top: 25px; text-align: center;">
-  <button class="btn teacher" onclick="unlockTeacherAnswers()">🔑 למורה (הצגת תשובות)</button>
+  <button class="btn teacher" onclick="unlockTeacherAnswers()">🔑 למורה, הצגת תשובות</button>
 </div>
 </section>
 
@@ -518,14 +518,14 @@ async function triggerRouteTest(dest) {
   tableGroup.classList.add("routing-table-active");
   document.querySelectorAll('.rt-row').forEach(row => row.classList.remove('active-row'));
   
-  info.innerHTML = "סטטוס: מנתב חבילה אל היעד המבוקש (" + dest + ")...";
+  info.innerHTML = "סטטוס: מנתב חבילה אל היעד המבוקש " + dest + "...";
   log("<b>[דוח ניתוב]</b> החבילה התקבלה מממשק <span class='code-text'>g0/0</span> של רשת המקור.");
   
   if(dest === 'HQ') {
     await animatePkt(coords.LAN.x, coords.LAN.y, coords.Core.x, coords.Core.y, "#3B82F6", "Dst: 172.16.5.10", 2200);
     document.getElementById('rtRowHQ').classList.add('active-row');
     log("<b>[החלטת ניתוב]</b> נמצאה התאמה לפרוטוקול <span class='code-text'>OSPF</span> עבור הרשת <span class='code-text'>172.16.0.0/16</span>.");
-    log("<b>[בחירת נתיב]</b> מנותב בהצלחה דרך ממשק <span class='code-text'>Serial 0/0/0</span> (כתובת: <span class='code-text'>10.0.0.2</span>).");
+    log("<b>[בחירת נתיב]</b> מנותב בהצלחה דרך ממשק <span class='code-text'>Serial 0/0/0</span>, כתובת: <span class='code-text'>10.0.0.2</span>.");
     await animatePkt(coords.Core.x, coords.Core.y, coords.HQ.x, coords.HQ.y, "#10B981", "via 10.0.0.2", 2200);
   } else if (dest === 'Internet') {
     await animatePkt(coords.LAN.x, coords.LAN.y, coords.Core.x, coords.Core.y, "#3B82F6", "Dst: 8.8.8.8", 2200);
@@ -535,7 +535,7 @@ async function triggerRouteTest(dest) {
     await animatePkt(coords.Core.x, coords.Core.y, coords.Internet.x, coords.Internet.y, "#F59E0B", "via 199.5.5.1", 2200);
   } else {
     document.getElementById('rtRowLAN').classList.add('active-row');
-    log("<b>[החלטת ניתוב]</b> תעבורה מקומית המזוהה כרשת מחוברת ישירות (<span class='code-text'>Directly Connected</span>).");
+    log("<b>[החלטת ניתוב]</b> תעבורה מקומית המזוהה כרשת מחוברת ישירות <span class='code-text'>Directly Connected</span>.");
   }
   markDone("s3");
 }
@@ -575,7 +575,7 @@ function submitRouteCmd() {
     document.getElementById("taskProgress").textContent = "הושלם בהצלחה! ✅";
     markDone("s4");
   } else {
-    output.innerHTML += "\n" + prompt + " " + val + "\n<span class='bad'>✘ שגיאה בתחביר הפקודה. התבנית: ip route [target_net] [mask] [next_hop]</span>";
+    output.innerHTML += "\n" + prompt + " " + val + "\n<span class='bad'>✘ שגיאה בתחביר הפקודה. התבנית: ip route target_net mask next_hop</span>";
   }
   input.value = "";
   output.scrollTop = output.scrollHeight;
@@ -601,24 +601,24 @@ const exercises = [
   },
   {
     type: "text",
-    q: "תרגיל 3: מהו ערך ה-<span class='framed-term'>Administrative Distance (AD)</span> של פרוטוקול <span class='framed-term'>OSPF</span> ומה הוא מייצג?",
+    q: "תרגיל 3: מהו ערך ה-<span class='framed-term'>Administrative Distance AD</span> של פרוטוקול <span class='framed-term'>OSPF</span> ומה הוא מייצג?",
     guidance: "💡 הדרכה: הסבר בקצרה בעברית מהו המספר המספרי של ה-AD עבור OSPF ומהי משמעותו מבחינת אמינות הנתב.",
     check: (v) => v.includes("110") && v.length > 8,
     hint: "הערך הוא 110, והוא מייצג את רמת האמינות של הפרוטוקול ביחס למקורות מידע אחרים.",
-    teacherSolution: "ערך AD של OSPF הוא 110. ערך זה מייצג אמינות יחסית ביחס לפרוטוקולים אחרים (ככל שהמספר נמוך יותר, המקור נחשב אמין יותר)."
+    teacherSolution: "ערך AD של OSPF הוא 110. ערך זה מייצג אמינות יחסית ביחס לפרוטוקולים אחרים, ככל שהמספר נמוך יותר, המקור נחשב אמין יותר."
   },
   {
     type: "text",
-    q: "תרגיל 4: מהו ערך ה-<span class='framed-term'>AD</span> של נתיב סטטי (<span class='framed-term'>Static Route</span>) והאם הוא עדיף על <span class='framed-term'>OSPF</span>?",
+    q: "תרגיל 4: מהו ערך ה-<span class='framed-term'>AD</span> של נתיב סטטי <span class='framed-term'>Static Route</span> והאם הוא עדיף על <span class='framed-term'>OSPF</span>?",
     guidance: "💡 הדרכה: רשום את ערך ה-AD של נתיב סטטי וציין האם הנתב יבחר בו על פני נתיב של OSPF ולמה.",
     check: (v) => v.includes("1") && (v.includes("עדיף") || v.includes("כן") || v.includes("אמין")),
-    hint: "ערך ה-AD של נתיב סטטי הוא 1, ולכן הוא עדיף ואמין יותר מ-OSPF (ערך נמוך מנצח).",
-    teacherSolution: "ערך ה-AD הוא 1. הוא עדיף על OSPF כי 1 נמוך מ-110 (הנתב תמיד מעדיף AD נמוך יותר)."
+    hint: "ערך ה-AD של נתיב סטטי הוא 1, ולכן הוא עדיף ואמין יותר מ-OSPF, ערך נמוך מנצח.",
+    teacherSolution: "ערך ה-AD הוא 1. הוא עדיף על OSPF כי 1 נמוך מ-110, הנתב תמיד מעדיף AD נמוך יותר."
   },
   {
     type: "code",
-    q: "תרגיל 5: מהי מסיכת הרשת (<span class='framed-term'>Subnet Mask</span>) בפורמט מלא עבור פרפיקס <span class='framed-term'>/28</span>?",
-    guidance: "💡 הדרכה: רשום את מסיכת הרשת בפורמט עשרוני נקודתי (לדוגמה: <span class='framed-term'>255.255.xxx.xxx</span>).",
+    q: "תרגיל 5: מהי מסיכת הרשת <span class='framed-term'>Subnet Mask</span> בפורמט מלא עבור פרפיקס <span class='framed-term'>/28</span>?",
+    guidance: "💡 הדרכה: רשום את מסיכת הרשת בפורמט עשרוני נקודתי, לדוגמה: <span class='framed-term'>255.255.xxx.xxx</span>.",
     check: (v) => v.trim() === "255.255.255.240",
     hint: "255.255.255.240",
     teacherSolution: "תשובה: 255.255.255.240"
@@ -629,19 +629,19 @@ const exercises = [
     guidance: "💡 הדרכה: תאר במשפט או שניים כיצד מסיכת הרשת משפיעה על בחירת המסלול בטבלת הניתוב כאשר יש התאמות מרובות.",
     check: (v) => v.length > 12 && (v.includes("ספציפ") || v.includes("ארוכ") || v.includes("מסיכה") || v.includes("פרפיקס")),
     hint: "הנתב יבחר בנתיב שבו מסיכת הרשת היא הספציפית והארוכה ביותר מבין האפשרויות התואמות.",
-    teacherSolution: "מנגנון Longest Prefix Match מעדיף תמיד את הרשומות בעלות מסיכת הרשת הספציפית והארוכה ביותר (למשל /28 מעדיף על /16)."
+    teacherSolution: "מנגנון Longest Prefix Match מעדיף תמיד את הרשומות בעלות מסיכת הרשת הספציפית והארוכה ביותר, למשל /28 מעדיף על /16."
   },
   {
     type: "code",
     q: "תרגיל 7: הגדר נתיב סטטי לרשת <span class='framed-term'>192.168.100.0/24</span> דרך הממשק המקומי <span class='framed-term'>GigabitEthernet 0/1</span>",
-    guidance: "💡 הדרכה: הקלד פקודת <span class='framed-term'>ip route</span> באנגלית, כאשר במקום Next-Hop תזין את שם הממשק המקומי (<span class='framed-term'>g0/1</span>).",
+    guidance: "💡 הדרכה: הקלד פקודת <span class='framed-term'>ip route</span> באנגלית, כאשר במקום Next-Hop תזין את שם הממשק המקומי <span class='framed-term'>g0/1</span>.",
     check: (v) => /^ip\s+route\s+192\.168\.100\.0\s+255\.255\.255\.0\s+gigabitethernet\s*0\/1$/i.test(v.trim()) || /^ip\ route\s+192\.168\.100\.0\s+255\.255\.255\.0\s+g0\/1$/i.test(v.trim()),
     hint: "ip route 192.168.100.0 255.255.255.0 g0/1",
-    teacherSolution: "פקודה מדויקת: ip route 192.168.100.0 255.255.255.0 GigabitEthernet 0/1 (או g0/1)"
+    teacherSolution: "פקודה מדויקת: ip route 192.168.100.0 255.255.255.0 GigabitEthernet 0/1 או g0/1"
   },
   {
     type: "text",
-    q: "תרגיל 8 (רפלקציה): מהו היתרון המרכזי של ניתוב דינמי (<span class='framed-term'>OSPF</span>) על פני ניתוב סטטי ברשת ארגונית גדולה?",
+    q: "תרגיל 8, רפלקציה: מהו היתרון המרכזי של ניתוב דינמי <span class='framed-term'>OSPF</span> על פני ניתוב סטטי ברשת ארגונית גדולה?",
     guidance: "💡 הדרכה: התייחס בהסברך להתנהגות הרשת בעת תקלות, שינויי טופולוגיה או הגדלת מספר הנתבים.",
     check: (v) => v.length > 15 && (v.includes("אוטומט") || v.includes("שינוי") || v.includes("גדול") || v.includes("תקלה") || v.includes("עדכון")),
     hint: "הסתגלות אוטומטית לשינויים ולתקלות בטופולוגיה ללא צורך בהתערבות ידנית של מנהל הרשת.",
@@ -649,19 +649,19 @@ const exercises = [
   },
   {
     type: "text",
-    q: "תרגיל 9 (רפלקציה): מתי תעדיף להשתמש בנתיב סטטי (<span class='framed-term'>Static Route</span>) למרות שפועל ברשת <span class='framed-term'>OSPF</span>?",
-    guidance: "💡 הדרכה: תן דוגמה לתרחיש מעשי (כמו חיבור לאינטרנט או דרישות אבטחה) שבו מעדיפים ניתוב סטטי.",
+    q: "תרגיל 9, רפלקציה: מתי תעדיף להשתמש בנתיב סטטי <span class='framed-term'>Static Route</span> למרות שפועל ברשת <span class='framed-term'>OSPF</span>?",
+    guidance: "💡 הדרכה: תן דוגמה לתרחיש מעשי, כמו חיבור לאינטרנט או דרישות אבטחה, שבו מעדיפים ניתוב סטטי.",
     check: (v) => v.length > 12 && (v.includes("אינטרנט") || v.includes("אבטחה") || v.includes("ברירת מחדל") || v.includes("Default") || v.includes("יציאה")),
     hint: "בעת הגדרת נתיב ברירת מחדל לאינטרנט, או עבור קישורים רגישים שדורשים שליטה מלאה ואבטחה גבוהה.",
-    teacherSolution: "במקרים של הגדרת נתיב ברירת מחדל (Default Route) ליציאה לאינטרנט, או כאשר רוצים להבטיח נתיב קבוע ומאובטח ללא הדהוד תעבורת OSPF."
+    teacherSolution: "במקרים של הגדרת נתיב ברירת מחדל Default Route ליציאה לאינטרנט, או כאשר רוצים להבטיח נתיב קבוע ומאובטח ללא הדהוד תעבורת OSPF."
   },
   {
     type: "text",
-    q: "תרגיל 10 (סיכום אישי): כתוב במשפט אחד מהו הלקח החשוב ביותר שלמדת בסדנה זו עם סהר על קבלת החלטות בנתבים.",
-    guidance: "💡 הדרכה: שתף בתובנה מרכזית לגבי סדר קבלת ההחלטות בנתב (<span class='framed-term'>Prefix Length</span>, <span class='framed-term'>AD</span>, <span class='framed-term'>Metric</span>).",
+    q: "תרגיל 10, סיכום אישי: כתוב במשפט אחד מהו הלקח החשוב ביותר שלמדת בסדנה זו עם סהר על קבלת החלטות בנתבים.",
+    guidance: "💡 הדרכה: שתף בתובנה מרכזית לגבי סדר קבלת ההחלטות בנתב, <span class='framed-term'>Prefix Length</span>, <span class='framed-term'>AD</span>, <span class='framed-term'>Metric</span>.",
     check: (v) => v.trim().length > 10,
     hint: "כתוב תובנה אישית, למשל: הנתב תמיד מעדיף את הנתיב הספציפי ביותר ואת מקור המידע האמין ביותר.",
-    teacherSolution: "תשובה חופשית של התלמיד. ציפייה: התייחסות למדרג ההחלטות (Subnet Specificity -> Administrative Distance -> Metric)."
+    teacherSolution: "תשובה חופשית של התלמיד. ציפייה: התייחסות למדרג ההחלטות, Subnet Specificity, Administrative Distance, Metric."
   }
 ];
 
