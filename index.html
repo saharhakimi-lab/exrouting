@@ -67,17 +67,117 @@ p { margin: 0 0 12px; color: var(--muted); }
 .step.active { background: var(--static-blue); }
 .progress-pct { font-size: 13px; color: var(--muted); font-family: 'Fira Code', monospace; }
 
-/* כותרת */
-header.hero { padding: 40px 0 25px; border-bottom: 1px solid var(--border); }
-.eyebrow { display: inline-block; font-family: 'Fira Code', monospace; font-size: 12px; color: var(--cyber-purple); background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.25); padding: 5px 14px; border-radius: 20px; margin-bottom: 14px; }
+/* ============ HEADER (קומפקטי, רציף ומסודר בלי רווחים מיותרים) ============ */
+header.hero{
+  padding: 10px 0 12px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  background: #FAF7F0;
+}
 
-.hero-title-wrap { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; }
-.hero-avatar-spin { width: 75px; height: 75px; object-fit: contain; flex-shrink: 0; animation: spinSlow 12s linear infinite; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+.header-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.header-main-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 
 @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-h1.title { font-size: 38px; margin: 0; color: #1A202C; }
+.hero-avatar-spin {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  flex-shrink: 0;
+  animation: spinSlow 12s linear infinite;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.header-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.eyebrow { display: inline-block; font-family: 'Fira Code', monospace; font-size: 10.5px; color: var(--cyber-purple); background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.25); padding: 2px 8px; border-radius: 12px; width: fit-content; direction: ltr; unicode-bidi: isolate; }
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+h1.title { font-size: 22px; margin: 0; color: #1A202C; line-height: 1.1; }
 h1.title span { color: var(--cyber-purple); }
+
+.subtitle{font-size:12px; max-width:750px; margin:0; color:var(--muted);}
+
+.header-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.protocol-row {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.protocol-chip {
+  font-family: 'Fira Code', monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--cyber-purple);
+  background: rgba(124,58,237,0.1);
+  border: 1px solid rgba(124,58,237,0.25);
+  padding: 2px 6px;
+  border-radius: 5px;
+  letter-spacing: 0.3px;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn {
+  font-family: 'Fira Code', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  transition: transform 0.18s ease, opacity 0.18s ease;
+  letter-spacing: 0.2px;
+}
+
+.nav-btn:hover { transform: translateY(-1px); }
+.nav-btn.solid { background: var(--cyber-purple); color: #fff; border-color: transparent; }
 
 section { padding: 40px 0; border-top: 1px solid var(--border); }
 .section-head { margin-bottom: 22px; }
@@ -171,13 +271,32 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 <div class="wrap">
 
 <header class="hero">
-  <div class="hero-text">
-    <div class="eyebrow"><span class="framed-term">Layer 3 Core Routing</span> · <span class="framed-term">OSPF & Static Path Selection</span></div>
-    <div class="hero-title-wrap">
+  <div class="header-inner">
+    <!-- קבוצה ימנית: אוואטר, תג, כותרת וסאבטייטל -->
+    <div class="header-main-group">
       <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מסתובב" class="hero-avatar-spin">
-      <h1 class="title">מסלול המידע - <span>לומדים ניתוב עם סהר</span></h1>
+      <div class="header-text-content">
+        <div class="eyebrow"><span class="framed-term">Layer 3 Core Routing</span> · <span class="framed-term">OSPF & Static Path Selection</span></div>
+        <div class="title-row">
+          <h1 class="title">מסלול המידע - <span>לומדים ניתוב עם סהר</span></h1>
+        </div>
+        <p class="subtitle">ברוכים הבאים לסדנת הניתוב המתקדמת.</p>
+      </div>
     </div>
-    <p class="subtitle">ברוכים הבאים לסדנת הניתוב המתקדמת. כאן תלמדו כיצד נתבים מקבלים החלטות, מעדכנים את טבלת הניתוב <span class="framed-term">Routing Table</span> וקובעים את הנתיב האופטימלי ברשת.</p>
+
+    <!-- קבוצה שמאלית: פרוטוקולים וכפתורי ניווט בשורה אחת צפופה -->
+    <div class="header-actions-group">
+      <div class="protocol-row">
+        <span class="protocol-chip">OSPF</span>
+        <span class="protocol-chip">STATIC</span>
+        <span class="protocol-chip">ROUTING</span>
+        <span class="protocol-chip">CLI</span>
+      </div>
+      <nav class="navbar">
+        <a class="nav-btn" href="#s3">מעבדה</a>
+        <a class="nav-btn solid" href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" rel="noopener">Gemini AI</a>
+      </nav>
+    </div>
   </div>
 </header>
 
@@ -226,7 +345,7 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
   <div class="section-num">03 — סימולטור מפות הניתוב הארגוני</div>
   <h2 class="section-title">הזנק חבילה ועקוב אחר קבלת ההחלטות בנתב הליבה</h2>
 </div>
-<p>לחץ על סוגי הבקשות למטה כדי לראות את אלגוריתם הניתוב מוצא את ה-<span class="framed-term">Next-Hop</span> מתוך טבלת הניתוב המוצגת במרכז.</p>
+<p>לחץ על סוגי הבקשות למטה כדי לראות את אלגוריתם הניתוב מוצא את ال-<span class="framed-term">Next-Hop</span> מתוך טבלת הניתוב המוצגת במרכז.</p>
 
 <div class="diagram-wrap">
 <svg id="routingDiagram" viewBox="0 0 1000 580" style="width:100%; display:block;">
@@ -457,7 +576,6 @@ const coords = {
   HQ: { x: 840, y: 210 }
 };
 
-/* מנגנון השהיה והאטת החבילה */
 let isPaused = false;
 let currentAnimId = 0;
 
@@ -581,19 +699,18 @@ function submitRouteCmd() {
   output.scrollTop = output.scrollHeight;
 }
 
-/* מערך 10 תרגילים, כולל שורות הדרכה */
 const exercises = [
   {
     type: "code",
     q: "תרגיל 1: כתוב פקודת הוספת נתיב סטטי לרשת <span class='framed-term'>10.20.0.0/16</span> דרך <span class='framed-term'>Next-Hop</span> בכתובת <span class='framed-term'>192.168.1.1</span>",
-    guidance: "💡 הדרכה: הקלד את פקודת ה-<span class='framed-term'>ip route</span> המלאה באנגלית כולל מסיכת רשת מתאימה ל-<span class='framed-term'>/16</span> וכתובת ה-Next-Hop.",
+    guidance: "💡 הדרכה: הקלד את פקודת ال-<span class='framed-term'>ip route</span> המלאה באנגלית כולל מסיכת רשת מתאימה ل-<span class='framed-term'>/16</span> וכתובת ה-Next-Hop.",
     check: (v) => /^ip\s+route\s+10\.20\.0\.0\s+255\.255\.0\.0\s+192\.168\.1\.1$/i.test(v.trim()),
     hint: "ip route 10.20.0.0 255.255.0.0 192.168.1.1",
     teacherSolution: "פקודה מדויקת: ip route 10.20.0.0 255.255.0.0 192.168.1.1"
   },
   {
     type: "code",
-    q: "תרגיל 2: כתוב פקודת <span class='framed-term'>Default Route</span> ששולחת את כל התעבורה הבלתי ידועה לכתובת <span class='framed-term'>172.16.0.1</span>",
+    q: "תרגיל 2: כתוב פקודת <span class='framed-term'>Default Route</span> ששולחת את כל התעבורה הבלתי ידועה لכתובת <span class='framed-term'>172.16.0.1</span>",
     guidance: "💡 הדרכה: השתמש ברשת היעד <span class='framed-term'>0.0.0.0</span> ומסיכה <span class='framed-term'>0.0.0.0</span> כדי לייצג נתיב ברירת מחדל.",
     check: (v) => /^ip\s+route\s+0\.0\.0\.0\s+0\.0\.0\.0\s+172\.16\.0\.1$/i.test(v.trim()),
     hint: "ip route 0.0.0.0 0.0.0.0 172.16.0.1",
@@ -601,19 +718,19 @@ const exercises = [
   },
   {
     type: "text",
-    q: "תרגיל 3: מהו ערך ה-<span class='framed-term'>Administrative Distance AD</span> של פרוטוקול <span class='framed-term'>OSPF</span> ומה הוא מייצג?",
-    guidance: "💡 הדרכה: הסבר בקצרה בעברית מהו המספר המספרי של ה-AD עבור OSPF ומהי משמעותו מבחינת אמינות הנתב.",
+    q: "תרגיל 3: מהו ערך ال-<span class='framed-term'>Administrative Distance AD</span> של פרוטוקול <span class='framed-term'>OSPF</span> ומה هو מייצג?",
+    guidance: "💡 הדרכה: הסבר בקצרה בעברית מהו המספר המספרי של ال-AD עבור OSPF ומהי משמעותו מבחינת אמינות الנתב.",
     check: (v) => v.includes("110") && v.length > 8,
     hint: "הערך הוא 110, והוא מייצג את רמת האמינות של הפרוטוקול ביחס למקורות מידע אחרים.",
-    teacherSolution: "ערך AD של OSPF הוא 110. ערך זה מייצג אמינות יחסית ביחס לפרוטוקולים אחרים, ככל שהמספר נמוך יותר, המקור נחשב אמין יותר."
+    teacherSolution: "ערך AD של OSPF هو 110. ערך זה מייצג אמינות יחסית ביחס לפרוטוקולים אחרים, ככל שהמספר נמוך יותר, המקור נחשב אמין יותר."
   },
   {
     type: "text",
-    q: "תרגיל 4: מהו ערך ה-<span class='framed-term'>AD</span> של נתיב סטטי <span class='framed-term'>Static Route</span> והאם הוא עדיף על <span class='framed-term'>OSPF</span>?",
-    guidance: "💡 הדרכה: רשום את ערך ה-AD של נתיב סטטי וציין האם הנתב יבחר בו על פני נתיב של OSPF ולמה.",
+    q: "תרגיל 4: מהו ערך ال-<span class='framed-term'>AD</span> של נתיב סטטי <span class='framed-term'>Static Route</span> והאם هو עדיף על <span class='framed-term'>OSPF</span>?",
+    guidance: "💡 הדרכה: רשום את ערך ה-AD של נתיב סטטי וציין האם الנתב יבחר בו על פני נתיב של OSPF ולמה.",
     check: (v) => v.includes("1") && (v.includes("עדיף") || v.includes("כן") || v.includes("אמין")),
-    hint: "ערך ה-AD של נתיב סטטי הוא 1, ולכן הוא עדיף ואמין יותר מ-OSPF, ערך נמוך מנצח.",
-    teacherSolution: "ערך ה-AD הוא 1. הוא עדיף על OSPF כי 1 נמוך מ-110, הנתב תמיד מעדיף AD נמוך יותר."
+    hint: "ערך ال-AD של נתיב סטטי هو 1, ולכן הוא עדיף ואמין יותר מ-OSPF, ערך נמוך מנצח.",
+    teacherSolution: "ערך ال-AD הוא 1. הוא עדיף על OSPF כי 1 נמוך מ-110, الנתב תמיד מעדיף AD נמוך יותר."
   },
   {
     type: "code",
@@ -625,10 +742,10 @@ const exercises = [
   },
   {
     type: "text",
-    q: "תרגיל 6: הסבר בקצרה מהו מנגנון <span class='framed-term'>Longest Prefix Match</span> וכיצד הוא מקבל החלטה.",
-    guidance: "💡 הדרכה: תאר במשפט או שניים כיצד מסיכת הרשת משפיעה על בחירת המסלול בטבלת הניתוב כאשר יש התאמות מרובות.",
+    q: "תרגיל 6: הסבר בקצרה מהو מנגנון <span class='framed-term'>Longest Prefix Match</span> וכיצד هو מקבל החלטה.",
+    guidance: "💡 הדרכה: תאר במשפט أو שניים כיצד מסיכת הרשת משפיעה על בחירת המסלול בטבלת الניתוב כאשר יש התאמות מרובות.",
     check: (v) => v.length > 12 && (v.includes("ספציפ") || v.includes("ארוכ") || v.includes("מסיכה") || v.includes("פרפיקס")),
-    hint: "הנתב יבחר בנתיב שבו מסיכת הרשת היא הספציפית והארוכה ביותר מבין האפשרויות התואמות.",
+    hint: "الנתב יבחר בנתיב שבו מסיכת הרשת היא הספציפית והארוכה ביותר מבין האפשרויות התואמות.",
     teacherSolution: "מנגנון Longest Prefix Match מעדיף תמיד את הרשומות בעלות מסיכת הרשת הספציפית והארוכה ביותר, למשל /28 מעדיף על /16."
   },
   {
@@ -641,26 +758,26 @@ const exercises = [
   },
   {
     type: "text",
-    q: "תרגיל 8, רפלקציה: מהו היתרון המרכזי של ניתוב דינמי <span class='framed-term'>OSPF</span> על פני ניתוב סטטי ברשת ארגונית גדולה?",
+    q: "תרגיל 8, רפלקציה: מהו الיתרון המרכזי של ניתוב דינמי <span class='framed-term'>OSPF</span> על פני ניתוב סטטי ברשת ארגונית גדולה?",
     guidance: "💡 הדרכה: התייחס בהסברך להתנהגות הרשת בעת תקלות, שינויי טופולוגיה או הגדלת מספר הנתבים.",
     check: (v) => v.length > 15 && (v.includes("אוטומט") || v.includes("שינוי") || v.includes("גדול") || v.includes("תקלה") || v.includes("עדכון")),
     hint: "הסתגלות אוטומטית לשינויים ולתקלות בטופולוגיה ללא צורך בהתערבות ידנית של מנהל הרשת.",
-    teacherSolution: "יתרון מרכזי: עדכון דינמי ואוטומטי של טבלאות הניתוב במקרה של ניתוק קישורים או שינויים בטופולוגיה, ללא צורך בעדכון ידני."
+    teacherSolution: "יתרון מרכזי: עדכון דינמי ואוטומטי של טבלאות الניתוב במקרה של ניתוק קישורים או שינויים בטופולוגיה, ללא צורך בעדכון ידני."
   },
   {
     type: "text",
     q: "תרגיל 9, רפלקציה: מתי תעדיף להשתמש בנתיב סטטי <span class='framed-term'>Static Route</span> למרות שפועל ברשת <span class='framed-term'>OSPF</span>?",
     guidance: "💡 הדרכה: תן דוגמה לתרחיש מעשי, כמו חיבור לאינטרנט או דרישות אבטחה, שבו מעדיפים ניתוב סטטי.",
     check: (v) => v.length > 12 && (v.includes("אינטרנט") || v.includes("אבטחה") || v.includes("ברירת מחדל") || v.includes("Default") || v.includes("יציאה")),
-    hint: "בעת הגדרת נתיב ברירת מחדל לאינטרנט, או עבור קישורים רגישים שדורשים שליטה מלאה ואבטחה גבוהה.",
-    teacherSolution: "במקרים של הגדרת נתיב ברירת מחדל Default Route ליציאה לאינטרנט, או כאשר רוצים להבטיח נתיב קבוע ומאובטח ללא הדהוד תעבורת OSPF."
+    hint: "בעת הגדרת נתיב ברירת מחדל לאינטרנט, أو עבור קישורים רגישים שדורשים שליטה מלאה وأבטחה גבוהה.",
+    teacherSolution: "במקרים של הגדרת נתיב ברירת מחדל Default Route ליציאה לאינטרנט, أو כאשר רוצים להבטיח נתיב קבוע ומאובטח ללא הדהוד תעבורת OSPF."
   },
   {
     type: "text",
-    q: "תרגיל 10, סיכום אישי: כתוב במשפט אחד מהו הלקח החשוב ביותר שלמדת בסדנה זו עם סהר על קבלת החלטות בנתבים.",
+    q: "תרגיל 10, סיכום אישי: כתוב במשפט אחד מהו الלקח الحשוב ביותר שלמדת בסדנה זו עם סהר על קבלת החלטות בנתבים.",
     guidance: "💡 הדרכה: שתף בתובנה מרכזית לגבי סדר קבלת ההחלטות בנתב, <span class='framed-term'>Prefix Length</span>, <span class='framed-term'>AD</span>, <span class='framed-term'>Metric</span>.",
     check: (v) => v.trim().length > 10,
-    hint: "כתוב תובנה אישית, למשל: הנתב תמיד מעדיף את הנתיב הספציפי ביותר ואת מקור המידע האמין ביותר.",
+    hint: "כתוב תובנה אישית, למשל: الנתב תמיד מעדיף את הנתיב הספציפי ביותר ואת מקור Миדע האמין ביותר.",
     teacherSolution: "תשובה חופשית של התלמיד. ציפייה: התייחסות למדרג ההחלטות, Subnet Specificity, Administrative Distance, Metric."
   }
 ];
@@ -676,7 +793,7 @@ function renderExercises() {
     
     let inputHtml = ex.type === "code" 
       ? `<input type="text" class="ex-input" id="exIn_${idx}" placeholder="הזן פקודה / תשובה באנגלית..." onkeydown="if(event.key==='Enter')checkEx(${idx})">`
-      : `<textarea class="ex-textarea" id="exIn_${idx}" placeholder="כתוב את הסברך ורפלקצייתך בעברית..."></textarea>`;
+      : `<textarea class="ex-textarea" id="exIn_${idx}" placeholder="כתוב את הסברך وרפלקצייתך בעברית..."></textarea>`;
       
     card.innerHTML = `
       <div class="ex-num">QUESTION ${idx + 1} OF 10</div>
