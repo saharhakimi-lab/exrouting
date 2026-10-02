@@ -193,16 +193,20 @@ section { padding: 32px 0; border-top: 1px solid var(--border); }
 }
 
 /* דיאגרמת ניתוב מעוצבת בצבע שמנת */
-.diagram-wrap { 
-  background: #FAF7F0; 
-  border: 2px solid var(--border2); 
-  border-radius: var(--radius); 
-  padding: 25px; 
-  overflow-x: auto; 
-  margin-top: 15px; 
-  color: #2D3748; 
+.diagram-wrap {
+  background: #FAF7F0;
+  border: 2px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 25px;
+  overflow-x: auto;
+  margin-top: 15px;
+  color: #2D3748;
   box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
 }
+/* תיקון: ה-SVG תמיד LTR כדי שהטקסט בטבלה יישאר בתוך המסגרת */
+#routingDiagram { direction: ltr; }
+#routingDiagram text { direction: ltr; unicode-bidi: plaintext; }
+
 .controls-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 18px; }
 button.btn { background: var(--cyber-purple); color: #FFFFFF; border: none; border-radius: 8px; padding: 10px 20px; font-family: 'Rubik'; font-weight: 600; font-size: 14px; cursor: pointer; transition: background 0.2s; }
 button.btn:hover { opacity: 0.9; }
@@ -343,22 +347,22 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 <p>לחץ על סוגי הבקשות למטה כדי לראות את אלגוריתם הניתוב מוצא את ה-Next-Hop מתוך טבלת הניתוב המוצגת במרכז.</p>
 
 <div class="diagram-wrap">
-<svg id="routingDiagram" viewBox="0 0 1000 650" style="width:100%; display:block;">
+<svg id="routingDiagram" viewBox="0 0 1000 680" direction="ltr" style="width:100%; height:auto; display:block; direction:ltr;">
   <!-- קווי חיבור -->
-  <line x1="230" y1="150" x2="440" y2="150" stroke="#94A3B8" stroke-width="3"/>
-  <line x1="520" y1="150" x2="730" y2="85" stroke="#94A3B8" stroke-width="3"/>
-  <line x1="520" y1="150" x2="730" y2="215" stroke="#94A3B8" stroke-width="3"/>
+  <line x1="230" y1="120" x2="440" y2="120" stroke="#94A3B8" stroke-width="3"/>
+  <line x1="520" y1="120" x2="730" y2="70" stroke="#94A3B8" stroke-width="3"/>
+  <line x1="520" y1="120" x2="730" y2="170" stroke="#94A3B8" stroke-width="3"/>
 
   <!-- Router Branch -->
   <g class="route-node" onclick="triggerRouteTest('LAN')" style="cursor:pointer;">
-    <rect x="30" y="95" width="200" height="110" rx="10" fill="#0F172A" stroke="#3B82F6" stroke-width="2"/>
-    <text x="130" y="135" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">Router_Branch</text>
-    <text x="130" y="160" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">VLAN 10: 10.1.1.0/24</text>
-    <text x="130" y="182" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">Interface: g0/0</text>
+    <rect x="30" y="65" width="200" height="110" rx="10" fill="#0F172A" stroke="#3B82F6" stroke-width="2"/>
+    <text x="130" y="105" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="15" font-weight="700">Router_Branch</text>
+    <text x="130" y="130" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">VLAN 10: 10.1.1.0/24</text>
+    <text x="130" y="152" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">Interface: g0/0</text>
   </g>
 
   <!-- Core Router -->
-  <g transform="translate(420, 95)">
+  <g transform="translate(420, 65)">
     <circle cx="60" cy="55" r="45" fill="#1E293B" stroke="#7C3AED" stroke-width="3"/>
     <path d="M 30 55 L 90 55 M 78 45 L 90 55 L 78 65" stroke="#A78BFA" stroke-width="2.5" fill="none"/>
     <text x="60" y="122" text-anchor="middle" fill="#1E293B" font-family="Rubik" font-size="14" font-weight="700">Core_Router</text>
@@ -366,55 +370,60 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 
   <!-- ISP Cloud -->
   <g class="route-node" onclick="triggerRouteTest('Internet')" style="cursor:pointer;">
-    <rect x="730" y="30" width="220" height="110" rx="10" fill="#0F172A" stroke="#F59E0B" stroke-width="2"/>
-    <text x="840" y="70" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">ענן האינטרנט ISP</text>
-    <text x="840" y="95" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">Route: 0.0.0.0/0</text>
-    <text x="840" y="115" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">Next-Hop: 199.5.5.1</text>
+    <rect x="730" y="15" width="240" height="100" rx="10" fill="#0F172A" stroke="#F59E0B" stroke-width="2"/>
+    <text x="850" y="50" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">ענן האינטרנט ISP</text>
+    <text x="850" y="73" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">Route: 0.0.0.0/0</text>
+    <text x="850" y="93" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">Next-Hop: 199.5.5.1</text>
   </g>
 
   <!-- HQ Network -->
   <g class="route-node" onclick="triggerRouteTest('HQ')" style="cursor:pointer;">
-    <rect x="730" y="160" width="220" height="110" rx="10" fill="#0F172A" stroke="#10B981" stroke-width="2"/>
-    <text x="840" y="200" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">רשת שרתי HQ</text>
-    <text x="840" y="225" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">Route: 172.16.0.0/16</text>
-    <text x="840" y="245" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">OSPF Cost: 11 Area 0</text>
+    <rect x="730" y="125" width="240" height="100" rx="10" fill="#0F172A" stroke="#10B981" stroke-width="2"/>
+    <text x="850" y="160" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">רשת שרתי HQ</text>
+    <text x="850" y="183" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">Route: 172.16.0.0/16</text>
+    <text x="850" y="203" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">OSPF Cost: 11 Area 0</text>
   </g>
 
-  <!-- Routing Table -->
-  <g id="routingTableGroup" transform="translate(100, 330)">
-    <rect x="0" y="0" width="800" height="270" rx="12" fill="#0F172A" stroke="#CBD5E1" stroke-width="2"/>
-    <text x="400" y="35" text-anchor="middle" fill="#A78BFA" font-family="Rubik" font-size="16" font-weight="800">Core_Router - טבלת ניתוב פעילה Routing Table</text>
-    <line x1="20" y1="50" x2="780" y2="50" stroke="#334155" stroke-width="1"/>
+  <!-- Routing Table (טבלת ניתוב מורחבת ומסודרת במרכז) -->
+  <g id="routingTableGroup" transform="translate(20, 260)">
+    <!-- רקע הטבלה ברוחב מלא 960 פיקסלים -->
+    <rect x="0" y="0" width="960" height="390" rx="12" fill="#0F172A" stroke="#CBD5E1" stroke-width="2"/>
+
+    <!-- כותרת הטבלה -->
+    <text x="480" y="40" text-anchor="middle" fill="#A78BFA" font-family="Rubik" font-size="18" font-weight="800">Core_Router - טבלת ניתוב פעילה Routing Table</text>
+    <line x1="20" y1="55" x2="940" y2="55" stroke="#334155" stroke-width="1.5"/>
 
     <!-- כותרות העמודות -->
-    <text x="40" y="75" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="13" font-weight="700">Protocol</text>
-    <text x="210" y="75" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="13" font-weight="700">Target Prefix</text>
-    <text x="410" y="75" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="13" font-weight="700">AD/Metric</text>
-    <text x="560" y="75" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="13" font-weight="700">Out Interface / Next-Hop</text>
+    <text x="40" y="90" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="15" font-weight="700">Protocol</text>
+    <text x="220" y="90" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="15" font-weight="700">Target Prefix</text>
+    <text x="440" y="90" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="15" font-weight="700">AD/Metric</text>
+    <text x="620" y="90" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="15" font-weight="700">Out Interface / Next-Hop</text>
 
-    <!-- שורות הטבלה -->
+    <!-- שורה 1: Connected -->
     <g id="rtRowLAN" class="rt-row">
-      <rect class="rt-row-bg" x="20" y="90" width="760" height="48" rx="6"/>
-      <text x="40" y="120" text-anchor="start" fill="#60A5FA" font-family="Fira Code" font-size="13" font-weight="600">C Connected</text>
-      <text x="210" y="120" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="13">10.1.1.0/24</text>
-      <text x="410" y="120" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">0/0 Direct</text>
-      <text x="560" y="120" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">GigabitEthernet 0/0</text>
+      <rect class="rt-row-bg" x="20" y="110" width="920" height="70" rx="8"/>
+      <text x="40" y="152" text-anchor="start" fill="#60A5FA" font-family="Fira Code" font-size="15" font-weight="700">C Connected</text>
+      <text x="220" y="152" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="15" font-weight="600">10.1.1.0/24</text>
+      <text x="440" y="152" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">0/0 Direct</text>
+      <text x="620" y="152" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">GigabitEthernet 0/0</text>
     </g>
 
+    <!-- שורה 2: OSPF -->
     <g id="rtRowHQ" class="rt-row">
-      <rect class="rt-row-bg" x="20" y="145" width="760" height="48" rx="6"/>
-      <text x="40" y="175" text-anchor="start" fill="#FBBF24" font-family="Fira Code" font-size="13" font-weight="600">O OSPF</text>
-      <text x="210" y="175" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="13">172.16.0.0/16</text>
-      <text x="410" y="175" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">110/11</text>
-      <text x="560" y="175" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">via Serial 0/0/0 10.0.0.2</text>
+      <rect class="rt-row-bg" x="20" y="195" width="920" height="70" rx="8"/>
+      <text x="40" y="237" text-anchor="start" fill="#FBBF24" font-family="Fira Code" font-size="15" font-weight="700">O OSPF</text>
+      <text x="220" y="237" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="15" font-weight="600">172.16.0.0/16</text>
+      <text x="440" y="237" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">110/11</text>
+      <text x="620" y="237" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">via Serial 0/0/0 (10.0.0.2)</text>
     </g>
 
+    <!-- שורה 3: Static -->
     <g id="rtRowInternet" class="rt-row">
-      <rect class="rt-row-bg" x="20" y="200" width="760" height="48" rx="6"/>
-      <text x="40" y="230" text-anchor="start" fill="#F87171" font-family="Fira Code" font-size="13" font-weight="600">S Static</text>
-      <text x="210" y="230" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="13">0.0.0.0/0 Default</text>
-      <text x="410" y="230" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">1/0 Manual</text>
-      <text x="560" y="230" text-anchor="start" fill="#94A3B8" font-family="Fira Code" font-size="13">via Serial 0/1/0 199.5.5.1</text>
+      <rect class="rt-row-bg" x="20" y="280" width="920" height="70" rx="8"/>
+      <text x="40" y="322" text-anchor="start" fill="#F87171" font-family="Fira Code" font-size="15" font-weight="700">S Static</text>
+      <text x="220" y="322" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="15" font-weight="600">0.0.0.0/0 Default</text>
+      <text x="440" y="322" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">1/0 Manual</text>
+      <text x="620" y="322" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">via Serial 0/1/0 (199.5.5.1)</text>
     </g>
   </g>
 
@@ -457,7 +466,7 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
     <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
     <span style="margin-right:12px; color:#94A3B8; font-size:12px;">Core-Router#</span>
   </div>
-  
+
   <div class="term-explain-box">
     <b>הנחיות לביצוע:</b> הקלד את הפקודה באנגלית בטרמינל. התבנית הנכונה היא: ip route target_network subnet_mask next_hop
   </div>
@@ -465,7 +474,7 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
   <div class="term-output" id="termOutput">Core-Router> enable
 Core-Router# configure terminal
 Core-Router# <span class="hint">הקלידו את פקודת הניתוב הסטטי ורדו שורה</span></div>
-  
+
   <div class="term-input-row">
     <span class="prompt" id="termPrompt">Core-Router#</span>
     <input type="text" class="term-input" id="termInput" placeholder="ip route 192.168.50.0 255.255.255.0 10.0.0.2" onkeydown="if(event.key==='Enter')submitRouteCmd()">
@@ -541,7 +550,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const PROGRESS_KEY = "route_sahhar_progress_v2";
 const stepIds = ["s1","s3","s4","s5"];
-let progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
+let progress = {};
+try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}"); } catch (e) { progress = {}; }
 
 function renderStepsBar(){
   const bar = document.getElementById("stepsBar");
@@ -561,16 +571,16 @@ function renderStepsBar(){
 
 function markDone(id){
   progress[id] = true;
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch (e) {}
   renderStepsBar();
 }
 renderStepsBar();
 
 const coords = {
-  LAN: { x: 130, y: 150 },
-  Core: { x: 480, y: 150 },
-  Internet: { x: 840, y: 85 },
-  HQ: { x: 840, y: 215 }
+  LAN: { x: 130, y: 120 },
+  Core: { x: 480, y: 120 },
+  Internet: { x: 850, y: 65 },
+  HQ: { x: 850, y: 175 }
 };
 
 let isPaused = false;
@@ -593,29 +603,29 @@ async function animatePkt(x1, y1, x2, y2, color, labelText, duration = 2500) {
   const pktGroup = document.getElementById("packetGroup");
   const pkt = document.getElementById("rtPacket");
   const label = document.getElementById("rtPacketLabel");
-  
+
   pkt.setAttribute("fill", color);
   label.textContent = labelText;
   pktGroup.style.display = "block";
-  
+
   const steps = 80;
   for(let i=0; i<=steps; i++){
     if (animId !== currentAnimId) return;
-    
+
     while(isPaused) {
       await new Promise(r => setTimeout(r, 100));
       if (animId !== currentAnimId) return;
     }
-    
+
     const t = i/steps;
     const cx = x1 + (x2 - x1)*t;
     const cy = y1 + (y2 - y1)*t;
-    
+
     pkt.setAttribute("cx", cx);
     pkt.setAttribute("cy", cy);
     label.setAttribute("x", cx);
     label.setAttribute("y", cy - 20);
-    
+
     await new Promise(r => setTimeout(r, duration / steps));
   }
 }
@@ -624,18 +634,18 @@ async function triggerRouteTest(dest) {
   isPaused = false;
   document.getElementById("pauseBtn").textContent = "השהה סימולציה";
   document.getElementById("pauseBtn").style.background = "#D97706";
-  
+
   const info = document.getElementById("routeInfo");
   const logBox = document.getElementById("routeLog");
   logBox.innerHTML = "";
-  
+
   const tableGroup = document.getElementById("routingTableGroup");
   tableGroup.classList.add("routing-table-active");
   document.querySelectorAll('.rt-row').forEach(row => row.classList.remove('active-row'));
-  
+
   info.innerHTML = "סטטוס: מנתב חבילה אל היעד המבוקש " + dest + "...";
   log("<b>דוח ניתוב:</b> החבילה התקבלה מממשק g0/0 של רשת המקור.");
-  
+
   if(dest === 'HQ') {
     await animatePkt(coords.LAN.x, coords.LAN.y, coords.Core.x, coords.Core.y, "#3B82F6", "Dst: 172.16.5.10", 2200);
     document.getElementById('rtRowHQ').classList.add('active-row');
@@ -684,7 +694,7 @@ function submitRouteCmd() {
   const output = document.getElementById("termOutput");
   const prompt = document.getElementById("termPrompt").textContent;
   if(val==="") return;
-  
+
   if(cliSteps[0].expect.test(val)) {
     output.innerHTML += "\n" + prompt + " " + val + "\n<span class='ok'>✔ " + cliSteps[0].ok + "</span>";
     document.getElementById("taskProgress").textContent = "הושלם בהצלחה!";
@@ -749,7 +759,7 @@ const exercises = [
     type: "code",
     q: "תרגיל 7: הגדר נתיב סטטי לרשת 192.168.100.0/24 דרך הממשק המקומי GigabitEthernet 0/1",
     guidance: "הדרכה: הקלד פקודת ip route באנגלית, כאשר במקום Next-Hop תזין את שם הממשק המקומי g0/1.",
-    check: (v) => /^ip\s+route\s+192\.168\.100\.0\s+255\.255\.255\.0\s+gigabitethernet\s*0\/1$/i.test(v.trim()) || /^ip\ route\s+192\.168\.100\.0\s+255\.255\.255\.0\s+g0\/1$/i.test(v.trim()),
+    check: (v) => /^ip\s+route\s+192\.168\.100\.0\s+255\.255\.255\.0\s+gigabitethernet\s*0\/1$/i.test(v.trim()) || /^ip\s+route\s+192\.168\.100\.0\s+255\.255\.255\.0\s+g0\/1$/i.test(v.trim()),
     hint: "ip route 192.168.100.0 255.255.255.0 g0/1",
     teacherSolution: "פקודה מדויקת: ip route 192.168.100.0 255.255.255.0 GigabitEthernet 0/1 או g0/1"
   },
@@ -783,15 +793,15 @@ function renderExercises() {
   const container = document.getElementById("exercisesContainer");
   if(!container) return;
   container.innerHTML = "";
-  
+
   exercises.forEach((ex, idx) => {
     const card = document.createElement("div");
     card.className = "ex-card";
-    
-    let inputHtml = ex.type === "code" 
+
+    let inputHtml = ex.type === "code"
       ? `<input type="text" class="ex-input" id="exIn_${idx}" placeholder="הזן פקודה או תשובה באנגלית" onkeydown="if(event.key==='Enter')checkEx(${idx})">`
       : `<textarea class="ex-textarea" id="exIn_${idx}" placeholder="כתוב את הסברך בעברית"></textarea>`;
-      
+
     card.innerHTML = `
       <div class="ex-num">QUESTION ${idx + 1} OF 10</div>
       <div class="ex-q">${ex.q}</div>
@@ -810,7 +820,7 @@ function checkEx(idx) {
   const inputEl = document.getElementById(`exIn_${idx}`);
   const fbEl = document.getElementById(`exFb_${idx}`);
   const val = inputEl.value;
-  
+
   if (ex.check(val)) {
     fbEl.className = "ex-feedback correct";
     fbEl.innerHTML = "✔ תשובה מעולה! נכון מאוד.";
@@ -818,7 +828,7 @@ function checkEx(idx) {
     fbEl.className = "ex-feedback wrong";
     fbEl.innerHTML = `✘ תשובה לא מדויקת. רמז או תשובה מצופה: <span class="code-text">${ex.hint}</span>`;
   }
-  
+
   markDone("s5");
 }
 
