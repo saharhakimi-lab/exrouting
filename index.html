@@ -37,16 +37,6 @@ body {
 h1, h2, h3 { font-weight: 700; margin: 0 0 8px; color: #1A202C; }
 p { margin: 0 0 12px; color: var(--muted); }
 
-/* סרגל התקדמות */
-.progressbar { position: sticky; top: 0; z-index: 150; background: rgba(250, 247, 240, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 14px 20px; }
-.progressbar-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
-.progressbar-title { font-weight: 700; font-size: 15px; color: #1A202C; }
-.steps { display: flex; gap: 6px; flex: 1; }
-.step { flex: 1; height: 8px; border-radius: 4px; background: var(--panel3); overflow: hidden; }
-.step.done { background: var(--bg-green); }
-.step.active { background: var(--static-blue); }
-.progress-pct { font-size: 13px; color: var(--muted); font-family: 'Fira Code', monospace; }
-
 /* HEADER */
 header.hero {
   padding: 16px 0;
@@ -261,14 +251,6 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 </style>
 </head>
 <body>
-
-<div class="progressbar">
-  <div class="progressbar-inner">
-    <div class="progressbar-title">🌐 מסלול המידע: ניתוב עם סהר</div>
-    <div class="steps" id="stepsBar"></div>
-    <div class="progress-pct" id="progressPct">0%</div>
-  </div>
-</div>
 
 <div class="wrap">
 
@@ -553,28 +535,10 @@ const stepIds = ["s1","s3","s4","s5"];
 let progress = {};
 try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}"); } catch (e) { progress = {}; }
 
-function renderStepsBar(){
-  const bar = document.getElementById("stepsBar");
-  if(!bar) return;
-  bar.innerHTML = "";
-  stepIds.forEach(id=>{
-    const d = document.createElement("div");
-    d.className = "step" + (progress[id] ? " done" : "");
-    bar.appendChild(d);
-  });
-  const done = stepIds.filter(id=>progress[id]).length;
-  document.getElementById("progressPct").textContent = Math.round(done/stepIds.length*100) + "%";
-  if(done === stepIds.length){
-    document.getElementById("completionBox").classList.add("show");
-  }
-}
-
 function markDone(id){
   progress[id] = true;
   try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch (e) {}
-  renderStepsBar();
 }
-renderStepsBar();
 
 const coords = {
   LAN: { x: 130, y: 120 },
