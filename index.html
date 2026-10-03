@@ -3,317 +3,418 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מסלול המידע - לומדים ניתוב עם סהר</title>
+<title>מסלול המידע - לומדים ניתוב עם סהר | האקדמיה לרשתות</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;800;900&family=Heebo:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
+
 <style>
 :root {
-  --bg: #FAF7F0;
-  --panel: #FFFFFF;
-  --panel2: #F3EEE3;
-  --panel3: #E8E1D1;
-  --border: #D8D0C0;
-  --border2: #C4BBA8;
-  --text: #2D3748;
-  --muted: #5A6578;
-  --muted2: #718096;
-  --primary-blue: #2563EB;
-  --static-blue: #1D4ED8;
-  --ospf-gold: #D97706;
-  --bg-green: #059669;
-  --cyber-purple: #7C3AED;
-  --radius: 14px;
+  --bg: #fbf8ee;
+  --paper: #ffffff;
+  --ink: #20150f;
+  --soft: #3b2b22;
+  --muted: #5a4a40;
+  --line: #e6d9bf;
+  --red: #b91c1c;
+  --red-text: #a11a1a;
+  --red-soft: #fcebe7;
+  --red-edge: #e9b8ae;
+  --term: #0b5d73;
+  --term-soft: #e1f3f8;
+  --aside-bg: #f6eadc;
+  --aside-edge: #e2c9a8;
+  --aside-ink: #5b3a1a;
+
+  --c-sky: #0e7490;   --c-sky-bg: #e3f4f9;
+  --c-green: #047857; --c-green-bg: #e1f5ee;
+  --c-amber: #b45309; --c-amber-bg: #fdf1dd;
+  --c-violet: #6d28d9; --c-violet-bg: #efe8fb;
+
+  --shadow: 0 10px 30px -12px rgba(120, 40, 20, 0.18);
+
+  --font-body: 'Heebo', 'Assistant', system-ui, sans-serif;
+  --font-display: 'Rubik', 'Heebo', system-ui, sans-serif;
+  --font-code: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
 }
-* { box-sizing: border-box; }
+
+body.dark {
+  --bg: #181311;
+  --paper: #241c18;
+  --ink: #f8efe7;
+  --soft: #eadfd5;
+  --muted: #d0c0b3;
+  --line: #3d2f26;
+  --red-text: #ff9b9b;
+  --red-soft: #3c1f1c;
+  --red-edge: #6d3a33;
+  --term: #7fdcf0;
+  --term-soft: #123640;
+  --aside-bg: #3a2c20;
+  --aside-edge: #6b5237;
+  --aside-ink: #f6dfc0;
+  --c-sky: #7fdcf0;   --c-sky-bg: rgba(14, 116, 144, 0.22);
+  --c-green: #6ee7b7; --c-green-bg: rgba(4, 120, 87, 0.24);
+  --c-amber: #fcd34d; --c-amber-bg: rgba(180, 83, 9, 0.26);
+  --c-violet: #c4b5fd; --c-violet-bg: rgba(109, 40, 217, 0.26);
+  --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 19px; }
+@media (max-width: 600px) { html { font-size: 17px; } }
+
 body {
-  margin: 0; background: var(--bg); color: var(--text);
-  font-family: 'Rubik', sans-serif; line-height: 1.6;
-  padding-bottom: 140px;
-}
-.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-h1, h2, h3 { font-weight: 700; margin: 0 0 8px; color: #1A202C; }
-p { margin: 0 0 12px; color: var(--muted); }
-
-/* HEADER */
-header.hero {
-  padding: 16px 0;
-  border-bottom: 1px solid var(--border);
-  background: #FAF7F0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  padding-bottom: 120px;
 }
 
-.header-inner {
+button, input, textarea, select { font-family: inherit; }
+button { cursor: pointer; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; }
+:focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
+
+.wrap { width: 100%; max-width: 1380px; margin: 0 auto; padding: 0 16px; }
+
+/* ---------- סטרייפ עליון ---------- */
+.top-stripe {
+  background: var(--red);
+  color: #ffffff;
+  padding: 8px 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  padding: 0 20px;
-}
-
-.header-main-group {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
-@keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.stripe-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
-.hero-avatar-spin {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-  flex-shrink: 0;
-  animation: spinSlow 12s linear infinite;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-}
-
-.header-text-content {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.eyebrow { display: inline-block; font-family: 'Fira Code', monospace; font-size: 11px; color: var(--cyber-purple); background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.25); padding: 2px 8px; border-radius: 12px; width: fit-content; }
-
-.title-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-h1.title { font-size: 24px; margin: 0; color: #1A202C; line-height: 1.1; }
-h1.title span { color: var(--cyber-purple); }
-
-.subtitle { font-size: 13px; max-width: 750px; margin: 0; color: var(--muted); }
-
-.header-actions-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.protocol-row {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-}
-
-.protocol-chip {
-  font-family: 'Fira Code', monospace;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--cyber-purple);
-  background: rgba(124,58,237,0.1);
-  border: 1px solid rgba(124,58,237,0.25);
-  padding: 2px 6px;
-  border-radius: 5px;
-}
-
-.navbar {
-  display: flex;
+.stripe-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-family: var(--font-code);
+  font-size: 0.7rem;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
-.nav-btn {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 5px 10px;
-  border-radius: 6px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--text);
-  transition: transform 0.18s ease, opacity 0.18s ease;
+.pulse-green {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.4);
+  animation: pulse 1.8s infinite;
 }
 
-.nav-btn:hover { transform: translateY(-1px); }
-.nav-btn.solid { background: var(--cyber-purple); color: #fff; border-color: transparent; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-section { padding: 32px 0; border-top: 1px solid var(--border); }
-.section-head { margin-bottom: 20px; }
-.section-title { font-size: 22px; color: #1A202C; }
+/* ---------- HEADER ---------- */
+header.hero-header {
+  background: var(--paper);
+  border-bottom: 2px solid var(--line);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.header-content { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 16px; }
+@media (min-width: 900px) { .header-content { flex-direction: row; } }
+.header-title-area { display: flex; align-items: center; gap: 16px; }
+header h1 { font-size: 1.35rem; line-height: 1.3; color: var(--red-text); }
+header p { font-size: 0.85rem; line-height: 1.5; color: var(--muted); font-weight: 500; }
 
-/* פתיחה מעוצבת וחדשה */
-.hero-intro-card {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F5F3FF 100%);
-  border: 2px solid #DDD6FE;
-  border-radius: 16px;
-  padding: 28px;
-  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.05);
-  margin-bottom: 10px;
+@keyframes crazy-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+.crazy-avatar {
+  width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+  border: 3px solid var(--red); background: #fff;
+  animation: crazy-spin 12s linear infinite;
+}
+
+.mode-btn {
+  min-height: 44px; padding: 0 18px; border-radius: 12px;
+  background: var(--paper); color: var(--ink); border: 2px solid var(--line);
+  font-weight: 700; font-size: 0.85rem;
+}
+.mode-btn:hover { border-color: var(--red); }
+
+/* ---------- תיוג אנגלית ---------- */
+.term-badge, .protocol-chip, .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  direction: ltr !important;
+  unicode-bidi: isolate !important;
+  font-family: var(--font-code);
+  font-size: 0.8em;
+  padding: 1px 7px;
+  margin: 0 3px;
+  border-radius: 6px;
+  background-color: var(--term-soft);
+  border: 1.5px solid var(--term);
+  color: var(--term);
+  font-weight: 700;
+  line-height: 1.4;
+  vertical-align: middle;
+}
+
+.protocol-chip {
+  background-color: var(--red-soft);
+  border-color: var(--red-edge);
+  color: var(--red-text);
+}
+
+/* ---------- כרטיסים ---------- */
+.card, .hero-intro-card, .ex-card, .task-box {
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: 22px;
+  padding: clamp(16px, 2.5vw, 22px);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
 }
 
 .intro-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .intro-box {
-  background: #FFFFFF;
-  border: 1px solid #E9D5FF;
-  border-radius: 12px;
-  padding: 18px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  background: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
 }
 
 .intro-box-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #6B21A8;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--red-text);
   margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
-/* דיאגרמת ניתוב מעוצבת בצבע שמנת */
+/* ---------- דיאגרמת ניתוב ---------- */
 .diagram-wrap {
-  background: #FAF7F0;
-  border: 2px solid var(--border2);
-  border-radius: var(--radius);
-  padding: 25px;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  padding: 16px;
   overflow-x: auto;
   margin-top: 15px;
-  color: #2D3748;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
 }
-/* תיקון: ה-SVG תמיד LTR כדי שהטקסט בטבלה יישאר בתוך המסגרת */
 #routingDiagram { direction: ltr; }
 #routingDiagram text { direction: ltr; unicode-bidi: plaintext; }
 
-.controls-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 18px; }
-button.btn { background: var(--cyber-purple); color: #FFFFFF; border: none; border-radius: 8px; padding: 10px 20px; font-family: 'Rubik'; font-weight: 600; font-size: 14px; cursor: pointer; transition: background 0.2s; }
-button.btn:hover { opacity: 0.9; }
-button.btn.secondary { background: var(--panel3); color: var(--text); border: 1px solid var(--border2); }
-button.btn.pause { background: #D97706; }
-button.btn.teacher { background: #059669; }
+/* ---------- כפתורים ---------- */
+button.btn, .ex-btn {
+  background: var(--red);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+button.btn:hover, .ex-btn:hover { background: #991b1b; transform: translateY(-1px); }
+button.btn.secondary { background: var(--paper); color: var(--ink); border: 2px solid var(--line); box-shadow: none; }
+button.btn.secondary:hover { border-color: var(--red); }
+button.btn.pause { background: var(--c-amber); color: #fff; }
+button.btn.teacher { background: var(--c-green); color: #ffffff; }
 
 .rt-row { transition: opacity 0.3s ease; }
 .rt-row-bg { fill: transparent; stroke: transparent; transition: fill 0.3s, stroke 0.3s; }
-.rt-row.active-row .rt-row-bg { fill: rgba(124, 58, 237, 0.25); stroke: #7C3AED; stroke-width: 1.5px; }
+.rt-row.active-row .rt-row-bg { fill: rgba(185, 28, 28, 0.15); stroke: var(--red); stroke-width: 1.5px; }
 .routing-table-active .rt-row:not(.active-row) { opacity: 0.35; }
 
-.log-panel { background: #0F172A; border: 1px solid var(--border2); border-radius: 10px; margin-top: 16px; padding: 14px; font-family: 'Fira Code', monospace; font-size: 13px; max-height: 200px; overflow-y: auto; color: #CBD5E1; border-right: 3px solid var(--primary-blue); }
+.log-panel {
+  background: #0f172a;
+  border: 2px solid #1e293b;
+  border-radius: 12px;
+  margin-top: 16px;
+  padding: 14px;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  max-height: 200px;
+  overflow-y: auto;
+  color: #cbd5e1;
+  direction: rtl;
+  text-align: right;
+}
 .log-line { margin-bottom: 6px; }
 
-/* טרמינל סיסקו */
-.terminal { background: #0F172A; border: 1px solid var(--cyber-purple); border-radius: 10px; padding: 18px; color: #F8FAFC; }
+/* ---------- טרמינל ---------- */
+.terminal {
+  background: #0f172a;
+  border: 2px solid #1e293b;
+  border-radius: 16px;
+  padding: 18px;
+  color: #f8fafc;
+  direction: ltr;
+  text-align: left;
+}
 .term-topbar { display: flex; gap: 6px; margin-bottom: 12px; align-items: center; }
 .dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot.r { background: #EF4444; } .dot.y { background: #F59E0B; } .dot.g { background: #10B981; }
-.term-explain-box { background: #1E293B; border-right: 3px solid var(--cyber-purple); padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: #E2E8F0; text-align: right; }
-.term-output { white-space: pre-wrap; color: #94A3B8; margin-bottom: 10px; min-height: 60px; font-family: 'Fira Code', monospace; text-align: left; }
-.term-output .ok { color: #34D399; font-weight: bold; }
-.term-output .bad { color: #F87171; font-weight: bold; }
-.term-output .hint { color: #FBBF24; }
+.dot.r { background: #ef4444; } .dot.y { background: #f59e0b; } .dot.g { background: #10b981; }
+.term-explain-box {
+  background: #1e293b;
+  border-right: 3px solid var(--red);
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  color: #e2e8f0;
+  text-align: right;
+  direction: rtl;
+  border-radius: 8px;
+}
+.term-output {
+  white-space: pre-wrap;
+  color: #94a3b8;
+  margin-bottom: 10px;
+  min-height: 60px;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  text-align: left;
+}
+.term-output .ok { color: #34d399; font-weight: bold; }
+.term-output .bad { color: #f87171; font-weight: bold; }
+.term-output .hint { color: #fbbf24; }
 .term-input-row { display: flex; align-items: center; gap: 8px; border-top: 1px solid #334155; padding-top: 12px; }
-.prompt { color: #34D399; font-family: 'Fira Code', monospace; font-size: 13px; white-space: nowrap; }
-input.term-input { flex: 1; background: transparent; border: none; color: #FFFFFF; font-family: 'Fira Code', monospace; font-size: 13px; outline: none; text-align: left; }
+.prompt { color: #34d399; font-family: var(--font-code); font-size: 0.75rem; white-space: nowrap; }
+input.term-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: var(--font-code); font-size: 0.75rem; outline: none; text-align: left; }
 
-.task-box { background: var(--panel2); border: 1px solid var(--border2); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
-.task-title { font-weight: 600; margin-bottom: 4px; color: var(--ospf-gold); }
+/* ---------- שדות תרגיל ---------- */
+.ex-num { font-size: 0.75rem; font-family: var(--font-code); color: var(--red-text); font-weight: 800; margin-bottom: 6px; }
+.ex-q { font-weight: 800; font-size: 1rem; color: var(--ink); margin-bottom: 12px; line-height: 1.5; }
+.ex-guidance { background: var(--bg); border-right: 4px solid var(--red); padding: 10px 14px; margin-bottom: 14px; font-size: 0.85rem; color: var(--muted); font-weight: 600; border-radius: 8px; }
+.ex-input { width: 100%; padding: 10px 14px; border: 2px solid var(--line); border-radius: 10px; background: var(--bg); font-family: var(--font-code); font-size: 0.85rem; text-align: left; margin-bottom: 12px; color: var(--ink); }
+.ex-input:focus { border-color: var(--red); outline: none; }
+.ex-textarea { width: 100%; padding: 10px 14px; border: 2px solid var(--line); border-radius: 10px; background: var(--bg); font-family: var(--font-body); font-size: 0.85rem; text-align: right; margin-bottom: 12px; min-height: 90px; color: var(--ink); }
+.ex-textarea:focus { border-color: var(--red); outline: none; }
 
-/* תרגילים */
-.ex-card { background: var(--panel); border: 2px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 22px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-.ex-num { font-size: 14px; font-family: 'Fira Code', monospace; color: var(--cyber-purple); font-weight: 800; margin-bottom: 6px; }
-.ex-q { font-weight: 700; font-size: 18px; color: #1A202C; margin-bottom: 12px; line-height: 1.5; }
-.ex-guidance { background: #EEF2FF; border-right: 4px solid #4F46E5; padding: 10px 14px; margin-bottom: 14px; font-size: 15px; color: #3730A3; font-weight: 500; border-radius: 4px; }
-.ex-input { width: 100%; padding: 12px 16px; border: 2px solid var(--border2); border-radius: 8px; background: var(--bg); font-family: 'Fira Code', monospace; font-size: 16px; text-align: left; margin-bottom: 12px; }
-.ex-input:focus { border-color: var(--cyber-purple); outline: none; }
-.ex-textarea { width: 100%; padding: 12px 16px; border: 2px solid var(--border2); border-radius: 8px; background: var(--bg); font-family: 'Rubik', sans-serif; font-size: 16px; text-align: right; margin-bottom: 12px; min-height: 90px; }
-.ex-textarea:focus { border-color: var(--cyber-purple); outline: none; }
-.ex-btn { background: var(--cyber-purple); color: white; padding: 10px 22px; font-size: 15px; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s; }
-.ex-btn:hover { background: #6D28D9; }
-.ex-feedback { font-size: 15px; margin-top: 10px; padding: 12px 16px; border-radius: 8px; display: none; font-weight: 500; }
-.ex-feedback.correct { display: block; background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
-.ex-feedback.wrong { display: block; background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
-.teacher-answer { font-size: 15px; margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; display: none; }
+.ex-feedback { font-size: 0.85rem; margin-top: 10px; padding: 12px 16px; border-radius: 10px; display: none; font-weight: 700; }
+.ex-feedback.correct { display: block; background: #d8f3e6; color: #0b6b4a; border: 1px solid #0b6b4a; }
+.ex-feedback.wrong { display: block; background: #fcdcd6; color: #a11a1a; border: 1px solid #a11a1a; }
+.teacher-answer { font-size: 0.85rem; margin-top: 12px; padding: 12px 16px; border-radius: 10px; background: var(--c-amber-bg); color: var(--c-amber); border: 1px solid var(--c-amber); display: none; }
 
-.completion { text-align: center; padding: 40px 20px; background: var(--panel); border: 2px solid var(--bg-green); border-radius: var(--radius); display: none; margin-top: 20px; }
+.completion { text-align: center; padding: 30px; background: var(--paper); border: 3px solid var(--c-green); border-radius: 22px; display: none; margin-top: 20px; }
 .completion.show { display: block; }
-.footer-note { text-align: center; color: var(--muted2); font-size: 12px; margin-top: 50px; }
+
+/* ---------- בוט עזר צף ---------- */
+.floating-bot-container { position: fixed; bottom: 20px; left: 20px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.floating-bot-card {
+  width: 320px; max-width: calc(100vw - 40px);
+  background: var(--paper); color: var(--ink);
+  border: 2px solid var(--line); border-radius: 20px;
+  padding: 18px; box-shadow: 0 14px 34px rgba(0,0,0,0.3);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.bot-header { display: flex; align-items: center; gap: 14px; border-bottom: 2px dashed var(--line); padding-bottom: 12px; }
+.bot-header h4 { font-size: 1rem; color: var(--red-text); line-height: 1.4; }
+.bot-header span.sub { font-size: 0.75rem; color: var(--muted); }
+.bot-avatar-spinning {
+  width: 54px; height: 54px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+  border: 3px solid var(--red); background: #fff; transform: rotate(15deg);
+}
+.bot-toggle-btn {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--paper); border: 2px solid var(--red); color: var(--red-text);
+  padding: 0 22px; min-height: 56px; border-radius: 9999px; font-weight: 800; font-size: 0.85rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+.gemini-bot-btn {
+  background: var(--red); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 12px;
+  font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+
+footer {
+  background: var(--paper); color: var(--muted); padding: 22px 0; text-align: center; font-size: 0.8rem;
+  margin-top: auto; border-top: 2px solid var(--line);
+}
 </style>
 </head>
 <body>
 
-<div class="wrap">
+<!-- 🔴 הסטרייפ העליון -->
+<div class="top-stripe">
+  <div class="stripe-group">
+    <span class="stripe-badge"><span class="pulse-green"></span> ACTIVE ROUTING LAB</span>
+    <span>תאריך עדכון: <span id="current-date"></span></span>
+  </div>
+  <div class="stripe-group">
+    <span class="stripe-badge">סדנת ניתוב ותקשורת</span>
+  </div>
+</div>
 
-<header class="hero">
-  <div class="header-inner">
-    <div class="header-main-group">
-      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מסתובב" class="hero-avatar-spin">
-      <div class="header-text-content">
-        <div class="eyebrow">Layer 3 Core Routing · OSPF & Static Path Selection</div>
-        <div class="title-row">
-          <h1 class="title">מסלול המידע - <span>לומדים ניתוב עם סהר</span></h1>
-        </div>
-        <p class="subtitle">סדנה אינטראקטיבית להבנת עקרונות הניתוב ברשתות תקשורת</p>
+<!-- Header -->
+<header class="hero-header">
+  <div class="wrap header-content">
+    <div class="header-title-area">
+      <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר מסתובב" class="crazy-avatar">
+      <div>
+        <h1>מסלול המידע <span class="term-badge">ROUTING_LAB</span></h1>
+        <p>לומדים ניתוב עם סהר - סדנה אינטראקטיבית להבנת עקרונות הניתוב ברשתות תקשורת</p>
       </div>
     </div>
-
-    <div class="header-actions-group">
-      <div class="protocol-row">
-        <span class="protocol-chip">OSPF</span>
-        <span class="protocol-chip">STATIC</span>
-        <span class="protocol-chip">ROUTING</span>
-        <span class="protocol-chip">CLI</span>
-      </div>
-      <nav class="navbar">
-        <a class="nav-btn" href="#s3">מעבדה</a>
-        <a class="nav-btn solid" href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" rel="noopener">Gemini AI</a>
-      </nav>
+    <div class="flex items-center gap-3">
+      <button class="mode-btn" id="darkToggleBtn" onclick="toggleDark()">מצב לילה</button>
     </div>
   </div>
 </header>
 
-<!-- פתיחה מעוצבת, קצרה וברורה -->
+<div class="wrap" style="margin-top: 20px;">
+
+<!-- פתיחה מעוצבת -->
 <section id="s1">
   <div class="hero-intro-card">
-    <h2 style="font-size: 22px; color: #4C1D95; margin-bottom: 8px;">מדריך מהיר: מהו ניתוב ואיך המידע עובר ברשת?</h2>
-    <p style="font-size: 15px; color: #4B5563; margin-bottom: 0;">
+    <h2 style="font-size: 1.1rem; color: var(--red-text); margin-bottom: 8px;">מדריך מהיר: מהו ניתוב ואיך המידע עובר ברשת?</h2>
+    <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 0;">
       ניתוב הוא התהליך שבו נתב מקבל החלטה לאן להעביר חבילת מידע כדי שתגיע ליעדה במהירות ובבטחה. ללא ניתוב, מחשבים ברשתות שונות לא יוכלו לתקשר ביניהם.
     </p>
 
     <div class="intro-grid">
       <div class="intro-box">
-        <div class="intro-box-title">
-          <span>📌</span> ניתוב סטטי
-        </div>
-        <p style="font-size: 14px; margin: 0; color: #64748B;">
+        <div class="intro-box-title">ניתוב סטטי</div>
+        <p style="font-size: 0.8rem; margin: 0; color: var(--muted);">
           מנהל הרשת מגדיר את המסלול באופן ידני. מדובר בפתרון יציב, בטוח וחסכוני במשאבים, המתאים לרשתות קטנות או לחיבורים קבועים.
         </p>
       </div>
 
       <div class="intro-box">
-        <div class="intro-box-title">
-          <span>⚡</span> ניתוב דינמי
-        </div>
-        <p style="font-size: 14px; margin: 0; color: #64748B;">
+        <div class="intro-box-title">ניתוב דינמי</div>
+        <p style="font-size: 0.8rem; margin: 0; color: var(--muted);">
           הנתבים משוחחים ביניהם באמצעות פרוטוקולים כמו OSPF, ומחשבים את המסלול הטוב ביותר אוטומטית. אם קו מסוים נופל, הרשת מוצאת מעקף ללא התערבות אדם.
         </p>
       </div>
 
       <div class="intro-box">
-        <div class="intro-box-title">
-          <span>🎯</span> ניתוב ברירת מחדל
-        </div>
-        <p style="font-size: 14px; margin: 0; color: #64748B;">
+        <div class="intro-box-title">ניתוב ברירת מחדל</div>
+        <p style="font-size: 0.8rem; margin: 0; color: var(--muted);">
           נתיב כללי השולח כל תעבורה שאין לה כתובת יעד ספציפית בטבלה. זהו המסלול שדרכו המחשב שלכם יוצא אל ענן האינטרנט.
         </p>
       </div>
@@ -322,11 +423,11 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 </section>
 
 <!-- חלק 3: סימולטור -->
-<section id="s3">
-<div class="section-head">
-  <h2 class="section-title">סימולטור מפות הניתוב הארגוני</h2>
+<section id="s3" class="card">
+<div>
+  <h2 style="font-size: 1.1rem; color: var(--red-text); margin-bottom: 8px;">סימולטור מפות הניתוב הארגוני</h2>
 </div>
-<p>לחץ על סוגי הבקשות למטה כדי לראות את אלגוריתם הניתוב מוצא את ה-Next-Hop מתוך טבלת הניתוב המוצגת במרכז.</p>
+<p style="font-size: 0.85rem;">לחץ על סוגי הבקשות למטה כדי לראות את אלגוריתם הניתוב מוצא את ה-Next-Hop מתוך טבלת הניתוב המוצגת במרכז.</p>
 
 <div class="diagram-wrap">
 <svg id="routingDiagram" viewBox="0 0 1000 680" direction="ltr" style="width:100%; height:auto; display:block; direction:ltr;">
@@ -339,8 +440,8 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
   <g class="route-node" onclick="triggerRouteTest('LAN')" style="cursor:pointer;">
     <rect x="30" y="65" width="200" height="110" rx="10" fill="#0F172A" stroke="#3B82F6" stroke-width="2"/>
     <text x="130" y="105" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="15" font-weight="700">Router_Branch</text>
-    <text x="130" y="130" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">VLAN 10: 10.1.1.0/24</text>
-    <text x="130" y="152" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">Interface: g0/0</text>
+    <text x="130" y="130" text-anchor="middle" fill="#94A3B8" font-family="JetBrains Mono" font-size="12">VLAN 10: 10.1.1.0/24</text>
+    <text x="130" y="152" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="11">Interface: g0/0</text>
   </g>
 
   <!-- Core Router -->
@@ -354,28 +455,25 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
   <g class="route-node" onclick="triggerRouteTest('Internet')" style="cursor:pointer;">
     <rect x="730" y="15" width="240" height="100" rx="10" fill="#0F172A" stroke="#F59E0B" stroke-width="2"/>
     <text x="850" y="50" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">ענן האינטרנט ISP</text>
-    <text x="850" y="73" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">Route: 0.0.0.0/0</text>
-    <text x="850" y="93" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">Next-Hop: 199.5.5.1</text>
+    <text x="850" y="73" text-anchor="middle" fill="#94A3B8" font-family="JetBrains Mono" font-size="12">Route: 0.0.0.0/0</text>
+    <text x="850" y="93" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="11">Next-Hop: 199.5.5.1</text>
   </g>
 
   <!-- HQ Network -->
   <g class="route-node" onclick="triggerRouteTest('HQ')" style="cursor:pointer;">
     <rect x="730" y="125" width="240" height="100" rx="10" fill="#0F172A" stroke="#10B981" stroke-width="2"/>
     <text x="850" y="160" text-anchor="middle" fill="#FFFFFF" font-family="Rubik" font-size="14" font-weight="700">רשת שרתי HQ</text>
-    <text x="850" y="183" text-anchor="middle" fill="#94A3B8" font-family="Fira Code" font-size="12">Route: 172.16.0.0/16</text>
-    <text x="850" y="203" text-anchor="middle" fill="#64748B" font-family="Fira Code" font-size="11">OSPF Cost: 11 Area 0</text>
+    <text x="850" y="183" text-anchor="middle" fill="#94A3B8" font-family="JetBrains Mono" font-size="12">Route: 172.16.0.0/16</text>
+    <text x="850" y="203" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="11">OSPF Cost: 11 Area 0</text>
   </g>
 
-  <!-- Routing Table (טבלת ניתוב מורחבת ומסודרת במרכז) -->
+  <!-- Routing Table -->
   <g id="routingTableGroup" transform="translate(20, 260)">
-    <!-- רקע הטבלה ברוחב מלא 960 פיקסלים -->
     <rect x="0" y="0" width="960" height="390" rx="12" fill="#0F172A" stroke="#CBD5E1" stroke-width="2"/>
 
-    <!-- כותרת הטבלה -->
     <text x="480" y="40" text-anchor="middle" fill="#A78BFA" font-family="Rubik" font-size="18" font-weight="800">Core_Router - טבלת ניתוב פעילה Routing Table</text>
     <line x1="20" y1="55" x2="940" y2="55" stroke="#334155" stroke-width="1.5"/>
 
-    <!-- כותרות העמודות -->
     <text x="40" y="90" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="15" font-weight="700">Protocol</text>
     <text x="220" y="90" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="15" font-weight="700">Target Prefix</text>
     <text x="440" y="90" text-anchor="start" fill="#94A3B8" font-family="Rubik" font-size="15" font-weight="700">AD/Metric</text>
@@ -384,42 +482,42 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
     <!-- שורה 1: Connected -->
     <g id="rtRowLAN" class="rt-row">
       <rect class="rt-row-bg" x="20" y="110" width="920" height="70" rx="8"/>
-      <text x="40" y="152" text-anchor="start" fill="#60A5FA" font-family="Fira Code" font-size="15" font-weight="700">C Connected</text>
-      <text x="220" y="152" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="15" font-weight="600">10.1.1.0/24</text>
-      <text x="440" y="152" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">0/0 Direct</text>
-      <text x="620" y="152" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">GigabitEthernet 0/0</text>
+      <text x="40" y="152" text-anchor="start" fill="#60A5FA" font-family="JetBrains Mono" font-size="15" font-weight="700">C Connected</text>
+      <text x="220" y="152" text-anchor="start" fill="#E2E8F0" font-family="JetBrains Mono" font-size="15" font-weight="600">10.1.1.0/24</text>
+      <text x="440" y="152" text-anchor="start" fill="#CBD5E1" font-family="JetBrains Mono" font-size="15">0/0 Direct</text>
+      <text x="620" y="152" text-anchor="start" fill="#CBD5E1" font-family="JetBrains Mono" font-size="15">GigabitEthernet 0/0</text>
     </g>
 
     <!-- שורה 2: OSPF -->
     <g id="rtRowHQ" class="rt-row">
       <rect class="rt-row-bg" x="20" y="195" width="920" height="70" rx="8"/>
-      <text x="40" y="237" text-anchor="start" fill="#FBBF24" font-family="Fira Code" font-size="15" font-weight="700">O OSPF</text>
-      <text x="220" y="237" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="15" font-weight="600">172.16.0.0/16</text>
-      <text x="440" y="237" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">110/11</text>
-      <text x="620" y="237" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">via Serial 0/0/0 (10.0.0.2)</text>
+      <text x="40" y="237" text-anchor="start" fill="#FBBF24" font-family="JetBrains Mono" font-size="15" font-weight="700">O OSPF</text>
+      <text x="220" y="237" text-anchor="start" fill="#E2E8F0" font-family="JetBrains Mono" font-size="15" font-weight="600">172.16.0.0/16</text>
+      <text x="440" y="237" text-anchor="start" fill="#CBD5E1" font-family="JetBrains Mono" font-size="15">110/11</text>
+      <text x="620" y="237" text-anchor="start" fill="#CBD5E1" font-family="JetBrains Mono" font-size="15">via Serial 0/0/0 10.0.0.2</text>
     </g>
 
     <!-- שורה 3: Static -->
     <g id="rtRowInternet" class="rt-row">
       <rect class="rt-row-bg" x="20" y="280" width="920" height="70" rx="8"/>
-      <text x="40" y="322" text-anchor="start" fill="#F87171" font-family="Fira Code" font-size="15" font-weight="700">S Static</text>
-      <text x="220" y="322" text-anchor="start" fill="#E2E8F0" font-family="Fira Code" font-size="15" font-weight="600">0.0.0.0/0 Default</text>
-      <text x="440" y="322" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">1/0 Manual</text>
-      <text x="620" y="322" text-anchor="start" fill="#CBD5E1" font-family="Fira Code" font-size="15">via Serial 0/1/0 (199.5.5.1)</text>
+      <text x="40" y="322" text-anchor="start" fill="#F87171" font-family="JetBrains Mono" font-size="15" font-weight="700">S Static</text>
+      <text x="220" y="322" text-anchor="start" fill="#E2E8F0" font-family="JetBrains Mono" font-size="15" font-weight="600">0.0.0.0/0 Default</text>
+      <text x="440" y="322" text-anchor="start" fill="#CBD5E1" font-family="JetBrains Mono" font-size="15">1/0 Manual</text>
+      <text x="620" y="322" text-anchor="start" fill="#CBD5E1" font-family="JetBrains Mono" font-size="15">via Serial 0/1/0 199.5.5.1</text>
     </g>
   </g>
 
   <!-- חבילת מידע נעה -->
   <g id="packetGroup" style="display:none;">
     <circle id="rtPacket" r="14" fill="#8B5CF6" stroke="#FFFFFF" stroke-width="2"/>
-    <text id="rtPacketLabel" text-anchor="middle" y="-20" fill="#10B981" font-family="Fira Code" font-size="12" font-weight="700"></text>
+    <text id="rtPacketLabel" text-anchor="middle" y="-20" fill="#10B981" font-family="JetBrains Mono" font-size="12" font-weight="700"></text>
   </g>
 </svg>
 
-<div class="controls-row">
-  <span id="routeInfo" style="color:var(--muted); font-size:14px;">לחץ על אחד הכפתורים כדי להזרים מידע ולראות איזו שורת ניתוב נבחרת</span>
+<div class="flex flex-wrap gap-2 items-center mt-4">
+  <span id="routeInfo" style="color:var(--muted); font-size:0.8rem;">לחץ על אחד הכפתורים כדי להזרים מידע ולראות איזו שורת ניתוב נבחרת</span>
 </div>
-<div class="controls-row">
+<div class="flex flex-wrap gap-2 items-center mt-3">
   <button class="btn" onclick="triggerRouteTest('HQ')">ניתוב לשרת הראשי OSPF Path</button>
   <button class="btn" onclick="triggerRouteTest('Internet')">גלישה לאתר חיצוני Default Route</button>
   <button class="btn pause" id="pauseBtn" onclick="togglePauseSimulation()">השהה סימולציה</button>
@@ -432,21 +530,21 @@ input.term-input { flex: 1; background: transparent; border: none; color: #FFFFF
 </section>
 
 <!-- חלק 4: CLI -->
-<section id="s4">
-<div class="section-head">
-  <h2 class="section-title">שורת הפקודה המעשית CLI</h2>
+<section id="s4" class="card">
+<div>
+  <h2 style="font-size: 1.1rem; color: var(--red-text); margin-bottom: 8px;">שורת הפקודה המעשית CLI</h2>
 </div>
 
 <div class="task-box">
-  <div class="task-title">משימת הגדרה:</div>
-  <p>יש להגדיר בנתב הליבה נתיב סטטי אל רשת הסניף המרוחקת 192.168.50.0/24 דרך כתובת ה-Next-Hop שכתובתה 10.0.0.2.</p>
-  <div class="task-progress" id="taskProgress" style="font-weight: bold; color: var(--cyber-purple);">הזן פקודה בטרמינל למטה:</div>
+  <div style="font-weight: 800; color: var(--red-text); margin-bottom: 4px;">משימת הגדרה:</div>
+  <p style="font-size: 0.85rem;">יש להגדיר בנתב הליבה נתיב סטטי אל רשת הסניף המרוחקת 192.168.50.0/24 דרך כתובת ה-Next-Hop שכתובתה 10.0.0.2.</p>
+  <div id="taskProgress" style="font-weight: 800; color: var(--red-text); font-size: 0.85rem;">הזן פקודה בטרמינל למטה:</div>
 </div>
 
 <div class="terminal">
   <div class="term-topbar">
     <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-    <span style="margin-right:12px; color:#94A3B8; font-size:12px;">Core-Router#</span>
+    <span style="margin-left:12px; color:#94a3b8; font-size:0.75rem;">Core-Router#</span>
   </div>
 
   <div class="term-explain-box">
@@ -465,11 +563,11 @@ Core-Router# <span class="hint">הקלידו את פקודת הניתוב הסט
 </section>
 
 <!-- חלק 5: תרגול ורפלקציה -->
-<section id="s5">
-<div class="section-head">
-  <h2 class="section-title">תרגול ורפלקציה מעשית</h2>
+<section id="s5" class="card">
+<div>
+  <h2 style="font-size: 1.1rem; color: var(--red-text); margin-bottom: 8px;">תרגול ורפלקציה מעשית</h2>
 </div>
-<p>פתור את התרגילים הבאים. בחלק מהתרגילים נדרשת חישוב או פקודה ובחלקם רפלקציה והסבר מילולי.</p>
+<p style="font-size: 0.85rem;">פתור את התרגילים הבאים. בחלק מהתרגילים נדרשת חישוב או פקודה ובחלקם רפלקציה והסבר מילולי.</p>
 
 <div id="exercisesContainer"></div>
 
@@ -479,59 +577,64 @@ Core-Router# <span class="hint">הקלידו את פקודת הניתוב הסט
 </section>
 
 <div class="completion" id="completionBox">
-  <h2>כל הכבוד! השלמת את כל היחידה בהצלחה!</h2>
-  <p>הפגנת שליטה מיומנת בניתוב סטטי, OSPF, הגדרות CLI ורפלקציה ארכיטקטונית.</p>
+  <h2 style="color: var(--c-green); font-size: 1.2rem;">כל הכבוד! השלמת את כל היחידה בהצלחה!</h2>
+  <p style="font-size: 0.85rem;">הפגנת שליטה מיומנת בניתוב סטטי, OSPF, הגדרות CLI ורפלקציה ארכיטקטונית.</p>
 </div>
 
-<div class="footer-note">מסלול המידע - לומדים ניתוב עם סהר · מערכת תרגול בהנדסת רשתות 2026</div>
 </div>
 
-<!-- כפתור עזרה צף -->
-<div class="fixed bottom-6 left-6 z-50 no-print">
-    <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2.5 px-5 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 border border-white/20">
-        <div class="w-8 h-8 rounded-full border border-white/40 overflow-hidden bg-slate-950 flex-shrink-0">
-            <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר בוט עזרה" class="w-full h-full object-cover">
+<!-- Floating Assistant Bot -->
+<div class="floating-bot-container">
+    <div id="bot-card" class="floating-bot-card" style="display: none;">
+        <div class="bot-header">
+            <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="בוט עזרה" class="bot-avatar-spinning">
+            <div>
+                <h4>עוזר הניתוב האישי</h4>
+                <span class="sub">זמין 24/7 לסיוע בלמידה</span>
+            </div>
         </div>
-        <span>בוט עזרה של סהר</span>
+        
+        <p style="font-size: 0.8rem; line-height: 1.6;">
+            צריך עזרה בחישוב מסיכות או בהגדרת פקודות ip route? הבוט החכם זמין לעזור לך בכל רגע!
+        </p>
+
+        <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="gemini-bot-btn">
+            <span>פתח בצ'אט עזרה</span>
+        </a>
+    </div>
+
+    <button onclick="toggleBotCard()" class="bot-toggle-btn">
+        <span>שאל את הבוט</span>
     </button>
 </div>
 
-<!-- חלונית עזרה צפה -->
-<div id="helpModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-stone-200 rounded-2xl p-6 max-w-sm w-full text-center relative shadow-2xl" id="helpModalContent">
-        <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 rounded-lg">
-            <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-        <div class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-purple-500 p-1 bg-stone-100 shadow-md overflow-hidden">
-            <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="תמונת בוט עזרה" class="w-full h-full object-cover rounded-full">
-        </div>
-        <h3 class="text-lg font-bold text-slate-800 mb-2">צריכים עזרה בניתוב?</h3>
-        <p class="text-sm text-slate-600 mb-6 leading-relaxed">הבוט של סהר זמין לעזור לכם להבין פקודות, לחשב מסיכות ולהתקדם בתרגילים!</p>
-        <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-md">
-            <span>פתיחת צ'אט עזרה</span>
-            <i data-lucide="external-link" class="w-4 h-4"></i>
-        </a>
+<footer>
+    <div class="wrap">
+        <p>© 2026 אקדמיית התקשוב של סהר - הדרך שלך לרשתות ותקשורת מחשבים</p>
     </div>
-</div>
+</footer>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-
-    const modal = document.getElementById('helpModal');
-    const modalContent = document.getElementById('helpModalContent');
-    const openBtn = document.getElementById('openHelpModalBtn');
-    const closeBtn = document.getElementById('closeHelpModalBtn');
-
-    if(openBtn && modal && modalContent && closeBtn) {
-        openBtn.addEventListener('click', () => { modal.classList.remove('hidden'); });
-        closeBtn.addEventListener('click', () => { modal.classList.add('hidden'); });
-        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
-    }
+document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', {
+    day: '2-digit', month: '2-digit', year: 'numeric'
 });
 
+function applyDark(on) {
+    document.body.classList.toggle('dark', on);
+    document.getElementById('darkToggleBtn').textContent = on ? 'מצב יום' : 'מצב לילה';
+}
+function toggleDark() {
+    const on = !document.body.classList.contains('dark');
+    applyDark(on);
+    try { localStorage.setItem('routing_sahhar_dark', on ? '1' : '0'); } catch (e) {}
+}
+
+function toggleBotCard() {
+    const card = document.getElementById('bot-card');
+    card.style.display = card.style.display === 'none' ? 'flex' : 'none';
+}
+
 const PROGRESS_KEY = "route_sahhar_progress_v2";
-const stepIds = ["s1","s3","s4","s5"];
 let progress = {};
 try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}"); } catch (e) { progress = {}; }
 
@@ -607,7 +710,7 @@ async function triggerRouteTest(dest) {
   tableGroup.classList.add("routing-table-active");
   document.querySelectorAll('.rt-row').forEach(row => row.classList.remove('active-row'));
 
-  info.innerHTML = "סטטוס: מנתב חבילה אל היעד המבוקש " + dest + "...";
+  info.innerHTML = "סטטוס: מנתב חבילה אל היעד המבוקש " + dest;
   log("<b>דוח ניתוב:</b> החבילה התקבלה מממשק g0/0 של רשת המקור.");
 
   if(dest === 'HQ') {
@@ -632,7 +735,7 @@ async function triggerRouteTest(dest) {
 function resetRouteSim() {
   currentAnimId++;
   isPaused = false;
-  document.getElementById("routeInfo").textContent = "לחץ על אחד הכפתורים כדי להזרים מידע ברכיבי הניתוב...";
+  document.getElementById("routeInfo").textContent = "לחץ על אחד הכפתורים כדי להזרים מידע ברכיבי הניתוב";
   document.getElementById("routeLog").innerHTML = '<div class="log-line">המערכת מאותחלת. טבלאות הניתוב מוכנות לקבלת החלטות שכבה 3.</div>';
   document.getElementById("packetGroup").style.display = "none";
   document.getElementById("routingTableGroup").classList.remove("routing-table-active");
@@ -790,7 +893,7 @@ function checkEx(idx) {
     fbEl.innerHTML = "✔ תשובה מעולה! נכון מאוד.";
   } else {
     fbEl.className = "ex-feedback wrong";
-    fbEl.innerHTML = `✘ תשובה לא מדויקת. רמז או תשובה מצופה: <span class="code-text">${ex.hint}</span>`;
+    fbEl.innerHTML = `✘ תשובה לא מדויקת. רמז או תשובה מצופה: ${ex.hint}`;
   }
 
   markDone("s5");
@@ -809,7 +912,10 @@ function unlockTeacherAnswers() {
   }
 }
 
-renderExercises();
+document.addEventListener('DOMContentLoaded', function(){
+  try { applyDark(localStorage.getItem('routing_sahhar_dark') === '1'); } catch (e) {}
+  renderExercises();
+});
 </script>
 </body>
 </html>
